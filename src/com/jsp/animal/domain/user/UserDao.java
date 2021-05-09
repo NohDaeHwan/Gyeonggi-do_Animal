@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import com.jsp.animal.config.DB;
 import com.jsp.animal.domain.user.dto.JoinReqDto;
+import com.jsp.animal.domain.user.dto.LoginReqDto;
 
 public class UserDao {
 	
@@ -30,6 +31,36 @@ public class UserDao {
 		}
 		return -1;
 	}
+	
+	// 로그인
+	public User findByUsername(LoginReqDto dto) {
+		String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getUsername());
+			pstmt.setString(2, dto.getPassword());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				user.setEmail(rs.getString("email"));
+				user.setRoadAddress(rs.getString("roadAddress"));
+				user.setJibunAddress(rs.getString("jibunAddress"));
+				user.setCreateDate(rs.getTimestamp("createDate"));
+				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt, rs);
+		}	
+		return null;
+	}	
 	
 	// 유저네임 중복 체크
 	public int usernameCheck(String username) {

@@ -44,8 +44,16 @@
               <a class="dropdown-item" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=0">유기 동물 보호 시설</a>
             </div>
           </li>
-          <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
-          <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>          
+          <c:choose>
+          	<c:when test="${sessionScope.User != null}">
+          		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
+          		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/journal?cmd=list&page=0&userId=${sessionScope.User.id}">마이 페이지</a></li>
+          	</c:when>
+          	<c:otherwise>
+          		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
+          		<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
+          	</c:otherwise>
+          </c:choose>               
         </ul>
       </div>
     </div>

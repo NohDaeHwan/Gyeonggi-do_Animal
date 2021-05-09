@@ -58,10 +58,18 @@
           <div class="card h-100">
             <h4 class="card-header">동물 병원 조회</h4>
             <div class="card-body">
-              <p class="card-text">근처 어디에 무슨 병원이 있었더라? <br> '동물 병원 조회'로 쉽고 상세하게 <br> 내 주변 동물 병원을 찾아보세요!</p>
+            <c:choose>
+          	  <c:when test="${hosptls != null}">
+          		<c:forEach var="hosptl" items="${hosptls}">
+          		  <p class="card-text">${hosptl.REFINE_ROADNM_ADDR}<br></p>
+          		</c:forEach>
+          		<a href="<%=request.getContextPath()%>/user?cmd=animalhosptl" style="text-decoration: none;">내 주변 동물병원 보러가기 --></a>
+          	  </c:when>
+          	  <c:otherwise><p class="card-text">근처 어디에 무슨 병원이 있었더라? <br> '동물 병원 조회'로 쉽고 상세하게 <br> 내 주변 동물 병원을 찾아보세요!</p></c:otherwise>
+            </c:choose>
             </div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalhosptl&page=0"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalhosptl&page=1&data=0"> 검색 </a>
             </div>
           </div>
         </div>
@@ -69,10 +77,18 @@
           <div class="card h-100">
             <h4 class="card-header">동물 약국 조회</h4>
             <div class="card-body">
-          	  <p class="card-text">다양하고 정확한 동물 약국 정보를 찾아보세요!</p>
+            <c:choose>
+          	  <c:when test="${pharmacys != null}">
+          	    <c:forEach var="pharmacy" items="${pharmacys}">
+          	      <p class="card-text">${pharmacy.REFINE_ROADNM_ADDR}</p>
+          	    </c:forEach>
+          	    <a href="<%=request.getContextPath()%>/user?cmd=animalpharmacy" style="text-decoration: none;">내 주변 동물약국 보러가기 --></a>
+          	  </c:when>
+          	  <c:otherwise><p class="card-text">다양하고 정확한 동물 약국 정보를 찾아보세요!</p></c:otherwise>
+            </c:choose>
             </div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=0"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=1&data=0"> 검색 </a>
             </div>
           </div>
         </div>
@@ -81,7 +97,7 @@
             <h4 class="card-header">유기 동물 보호 시설 조회</h4>
             <div class="card-body"><p class="card-text">유기 동물들을 보호하고 있는 시설들을 찾아보세요!</p></div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=0"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=1&data=0"> 검색 </a>
             </div>
           </div>
         </div>

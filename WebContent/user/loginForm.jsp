@@ -36,7 +36,7 @@
           <div id="success"></div>
           <!-- For success/fail messages -->
           <button type="submit" class="btn btn-primary">로그인</button>
-          <button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/user/joinForm.jsp'">회원가입</button>
+          <button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath()%>/user?cmd=joinForm'">회원가입</button>
         </form>
       </div>
     </div>

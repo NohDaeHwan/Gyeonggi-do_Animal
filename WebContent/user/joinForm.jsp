@@ -80,6 +80,44 @@
   		}
   		return isChecking;
   	}
+  	
+  	function usernameCheck() {
+  		var username = $("#id").val();
+  		if (username == '') {
+  			alert("아이디를 입력해주세요~!!");
+  			return;
+  		}
+  		
+  		$.ajax({
+  			type: "POST",
+  			url: "/animal/user?cmd=usernameCheck",
+  			data: username,
+  			contentType: "text/plain; charset=utf-8",
+  			dataType: "text"
+  		}).done(function(data) {
+  			if (data === 'ok') {
+  				isChecking = false;
+  				alert('이미 사용중인 아이디입니다.');
+  			} else {
+  				isChecking = true;
+  				alert('해당 아이디를 사용할 수 있습니다.');
+  				$("#id").attr("readonly", true);
+  			}
+  		});
+  	}
+  
+  	function goPopup() {
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("/animal/user/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	}
+  	
+  	function jusoCallBack(roadFullAddr,jibunAddr) {
+  		var roadAddress = document.querySelector("#roadAddress");
+  		var jibunAddress = document.querySelector("#jibunAddress");
+  		roadAddress.value = roadFullAddr;
+  		jibunAddress.value = jibunAddr;
+	}
   </script>
 
 </body>

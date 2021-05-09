@@ -60,7 +60,7 @@ public class UserDao {
 			DB.close(conn, pstmt, rs);
 		}	
 		return null;
-	}	
+	}
 	
 	// 유저네임 중복 체크
 	public int usernameCheck(String username) {
@@ -80,6 +80,27 @@ public class UserDao {
 		} finally {
 			DB.close(conn, pstmt, rs);
 		}
+		return -1;
+	}
+	
+	// 패스워드 일치 확인
+	public int passwordCheck(String password) {
+		String sql = "SELECT * FROM user WHERE password = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, password);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt, rs);
+		}		
 		return -1;
 	}
 	 

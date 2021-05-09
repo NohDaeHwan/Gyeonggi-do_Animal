@@ -29,4 +29,9 @@ public class UserService {
 		return result;
 	}
 	
+	// 패스워드 일치 확인
+	public int passwordCheck(String password) {
+		int result = userDao.passwordCheck(password);
+		return result;
+	}
 }

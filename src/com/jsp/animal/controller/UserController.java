@@ -17,7 +17,7 @@ import com.jsp.animal.domain.user.User;
 import com.jsp.animal.domain.user.dto.JoinReqDto;
 import com.jsp.animal.domain.user.dto.LoginReqDto;
 import com.jsp.animal.search.Animal;
-import com.jsp.animal.service.AnimalService;
+import com.jsp.animal.search.AnimalDao;
 import com.jsp.animal.service.UserService;
 import com.jsp.animal.util.Script;
 
@@ -44,6 +44,64 @@ public class UserController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect("index.jsp");
+		} else if (cmd.equals("PasswordCheckForm")) { // 회원정보 수정 페이지로 이동 전 비밀번호 체크 페이지로 이동
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				request.setAttribute("passwordCheck", true);
+				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp");
+				dis.forward(request, response);
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("</script>");
+				out.flush();
+			}
+		} else if (cmd.equals("animalhosptl") || cmd.equals("animalpharmacy")) { // User 주변 동물병원 보여주기
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				String address = "";
+				if (user.getJibunAddress().contains("수원시") || user.getJibunAddress().contains("성남시") || user.getJibunAddress().contains("안양시") ||
+						user.getJibunAddress().contains("안산시") || user.getJibunAddress().contains("용인시") || user.getJibunAddress().contains("고양시")) {
+					String str[] = user.getJibunAddress().split(" ");
+					address = str[3];
+				} else {
+					String str[] = user.getJibunAddress().split(" ");
+					address = str[2];
+				}
+				
+				ArrayList<Animal> animalDto = new ArrayList<Animal>();
+				ArrayList<Animal> animals = new ArrayList<Animal>();
+				
+				AnimalDao animalDao = new AnimalDao();
+				animalDto = animalDao.addressSearch(cmd, address);
+				
+				for (int i = 0; i < animalDto.size(); i++) {
+					Animal animal = new Animal();
+					animal.setSIGUN_NM(animalDto.get(i).getSIGUN_NM());
+					animal.setBIZPLC_NM(animalDto.get(i).getBIZPLC_NM());
+					animal.setBSN_STATE_NM(animalDto.get(i).getBSN_STATE_NM());
+					animal.setROADNM_ZIP_CD(animalDto.get(i).getROADNM_ZIP_CD());
+					animal.setREFINE_ROADNM_ADDR(animalDto.get(i).getREFINE_ROADNM_ADDR());
+					
+					animals.add(animal);
+				}
+				
+				request.setAttribute("animals", animals);
+				
+				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp"); 
+		  	    dis.forward(request, response);	
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("</script>");
+				out.flush();
+			}
 		}
 		
 	}
@@ -95,8 +153,8 @@ public class UserController extends HttpServlet {
 				ArrayList<Animal> hosptls = new ArrayList<Animal>();
 				ArrayList<Animal> pharmacys = new ArrayList<Animal>();
 				
-				AnimalService service = new AnimalService();
-				animalDto = service.indexSearch(address);
+				AnimalDao animalDao = new AnimalDao();
+				animalDto = animalDao.indexSearch(address);
 				System.out.println(animalDto.size());
 				for (int i = 0; i < animalDto.size(); i++) {
 					Animal animal = new Animal();
@@ -133,6 +191,32 @@ public class UserController extends HttpServlet {
 				out.print("fail");
 			}
 			out.flush();
+		} else if (cmd.equals("passwordCheck")) { // 회원정보 수정 페이지로 이동 전 비밀번호 체크
+			BufferedReader br = request.getReader();
+			String password = br.readLine();
+			int result = userService.passwordCheck(password);
+			PrintWriter out = response.getWriter();
+			if (result == 1) { 
+				out.print("ok");
+			} else {
+				out.print("fail");
+			}
+			out.flush();
+		} else if (cmd.equals("userUpdateForm")) { // 회원정보 수정 페이지로 이동
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				request.setAttribute("update", true);
+				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp");
+				dis.forward(request, response);
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("</script>");
+				out.flush();
+			}
 		} 
 	}
 

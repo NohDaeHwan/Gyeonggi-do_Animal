@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.jsp.animal.domain.user.User"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Insert title here</title>
+  <title>경기 동물 지킴이</title>
 </head>
 <body>
-  <%
-    RequestDispatcher dis = request.getRequestDispatcher("main.jsp");
-	dis.forward(request, response);
-  %>
+	<%
+		RequestDispatcher dis = request.getRequestDispatcher("search?cmd=index");
+		dis.forward(request, response);
+	%>
 </body>
 </html>

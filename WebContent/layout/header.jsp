@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -38,9 +39,9 @@
               메뉴
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/search/animalHosptl.jsp">동물 병원</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/search/animalPharmacy.jsp">동물 약국</a>
-              <a class="dropdown-item" href="<%=request.getContextPath()%>/search/animalFacilit.jsp">유기 동물 보호 시설</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/search?cmd=animalhosptl&page=0">동물 병원</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=0">동물 약국</a>
+              <a class="dropdown-item" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=0">유기 동물 보호 시설</a>
             </div>
           </li>
           <li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/user/loginForm.jsp">로그인</a></li>

@@ -61,7 +61,7 @@
               <p class="card-text">근처 어디에 무슨 병원이 있었더라? <br> '동물 병원 조회'로 쉽고 상세하게 <br> 내 주변 동물 병원을 찾아보세요!</p>
             </div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search/animalHosptl.jsp"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalhosptl&page=0"> 검색 </a>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
           	  <p class="card-text">다양하고 정확한 동물 약국 정보를 찾아보세요!</p>
             </div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search/animalPharmacy.jsp"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=0"> 검색 </a>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@
             <h4 class="card-header">유기 동물 보호 시설 조회</h4>
             <div class="card-body"><p class="card-text">유기 동물들을 보호하고 있는 시설들을 찾아보세요!</p></div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search/animalFacilit.jsp"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=0"> 검색 </a>
             </div>
           </div>
         </div>

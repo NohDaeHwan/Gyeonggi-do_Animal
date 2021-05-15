@@ -37,21 +37,22 @@
             <table class="table table-bordered table-sm">
       	      	<thead>
     		    	<tr>
-    	  		  		<th style="background-color: #fafafa; text-align: center;">시군명</th>
     	  		  		<th style="background-color: #fafafa; text-align: center;">사업장명</th>
-    	  		  		<th style="background-color: #fafafa; text-align: center;">영업상태</th>
-    	  		  		<th style="background-color: #fafafa; text-align: center;">우편번호</th>
+    	  		  		<th style="background-color: #fafafa; text-align: center;">상태</th>
+    	  		  		<th style="background-color: #fafafa; text-align: center;">전화번호</th>
     	  	 	  		<th style="background-color: #fafafa; text-align: center;">도로명주소</th>
+    	  		  		<th style="background-color: #fafafa; text-align: center;">평점</th>
     				</tr>
       	      	</thead>
       	      	<tbody>
       		   		<c:forEach var="animal" items="${animals}">
     				<tr>
-          		  		<td style="text-align: center;">${animal.SIGUN_NM}</td>
-         		  		<td style="text-align: center;">${animal.BIZPLC_NM}</td>
-          		  		<td style="text-align: center;">${animal.BSN_STATE_NM}</td>
-          		  		<td style="text-align: center;">${animal.ROADNM_ZIP_CD}</td>
-          		  		<td style="text-align: center;">${animal.REFINE_ROADNM_ADDR}</td>
+         		  		<td style="text-align: center; font-size: small;">${animal.BIZPLC_NM}</td>
+          		  		<td style="text-align: center; font-size: small;">${animal.BSN_STATE_NM}</td>
+          		  		<td style="text-align: center; font-size: small;">${animal.LOCPLC_FACLT_TELNO}</td>
+          		  		<td style="text-align: center; font-size: small;">${animal.REFINE_ROADNM_ADDR}</td>
+          		  		<c:if test="${animal.TOTAL_RANK == ''}"><td style="text-align: center; font-size: small;"><strong> X </strong></td></c:if>
+          		  		<c:if test="${animal.TOTAL_RANK != ''}"><td style="text-align: center; font-size: small;"><strong>5 / ${animal.TOTAL_RANK}</strong></td></c:if>       		  		
         			</tr>
 	  				</c:forEach>
       		  	</tbody>
@@ -70,6 +71,25 @@
       				<div class="form-group">
       					<label for="treatDate"><strong>진료일자:</strong></label>
       					<input type="date" class="form-control" id="treatDate" name="treatDate" />
+      				</div>
+      				<div class="form-group">
+      					<label for="visit"><strong>방문한병원:</strong></label>
+      					<select class="form-control" name="visit" id="visit">
+      						<c:forEach var="animal" items="${animalDto}">
+      						<option value="${animal.BIZPLC_NM}">${animal.BIZPLC_NM}</option>
+      						</c:forEach>
+      					</select>
+      					<input type="hidden" name="address" value="${address}">
+      				</div>
+      				<div class="form-group">
+      					<label for="rank"><strong>평점:</strong></label>
+      					<select class="form-control" name="rank" id="rank">
+      						<option value="1">1점</option>
+      						<option value="2">2점</option>
+      						<option value="3">3점</option>
+      						<option value="4">4점</option>
+      						<option value="5">5점</option>
+      					</select>
       				</div>
       				<div class="form-group">
       					<label for="content"><strong>내용:</strong></label>
@@ -128,7 +148,7 @@
       		</div>
       	</c:if>
       	
-      	<c:if test="${passwordCheck == true}">
+      	<c:if test="${passwordCheck == true}"> <%-- 회원정보 수정하기 전 비밀번호 확인하기 --%>
       	<div class="col-lg-8 mb-4">
         	<form action="<%=request.getContextPath()%>/user?cmd=userUpdateForm" method="post" onsubmit="return valid()">
           		<div class="control-group form-group">
@@ -149,13 +169,13 @@
       	</div>
       	</c:if>
       	
-      	<c:if test="${update == true}">
+      	<c:if test="${update == true}"> <%-- 비밀번호 체크가 완료되면 회원정보수정 페이지 보여주기 --%>
       	<div class="col-lg-8 mb-4">
-        	<form action="<%=request.getContextPath()%>/user?cmd=userUpdate" method="post">
+        	<form action="#" method="post">
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="id"><strong>아이디 :</strong> </label>
-              			<input type="text" class="form-control" id="id" name="id" value="${sessionScope.User.username}" required readonly>
+              			<label for="userid"><strong>아이디 :</strong> </label>
+              			<input type="text" class="form-control" id="userid" name="userid" value="${sessionScope.User.username}" required readonly>
               			<p class="help-block"></p>
             		</div>
           		</div>
@@ -198,7 +218,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Core theme JS-->
   <script src="js/scripts.js"></script>
-  
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
   <script>	
@@ -207,12 +226,12 @@
 	function valid() {
 		var username = $("#id").val();
 		var password = $("#password").val();
+		console.log(username, password);
 		
 		$.ajax({
 			type: "POST",
 			url: "/animal/user?cmd=passwordCheck",
-			data: password,
-			contentType: "text/plain; charset=utf-8",
+			data: {username : username, password : password},
 			dataType: "text"
 		}).done(function(data) {
 			if (data === 'ok') {
@@ -227,8 +246,30 @@
 	}
 	
 	function userUpdate() {
-		var result = comfirm('회원정보를 수정하시겠습니까?');
-		console.log(result);
+		var result = confirm('회원정보를 수정하시겠습니까?');
+
+		if (result == true) {
+			var username = $("#userid").val();
+			var email = $("#email").val();
+			var roadAddress = $("#roadAddress").val();
+			var jibunAddress = $("#jibunAddress").val();
+			
+			console.log(username, email, roadAddress, jibunAddress);
+			$.ajax({
+				type: "POST",
+				url: "/animal/user?cmd=userUpdate",
+			    data: {username: username, email: email, roadAddress: roadAddress, jibunAddress: jibunAddress},
+			    dataType: "text"
+			}).done(function(data) {
+				if (data === 'ok') {
+					alert('회원정보를 수정했습니다');
+					window.location.reload();
+				} else {
+					alert('회원정보 수정을 실패했습니다');
+				}
+			});
+		} 
+		
 	}
 	
 	function goPopup() {

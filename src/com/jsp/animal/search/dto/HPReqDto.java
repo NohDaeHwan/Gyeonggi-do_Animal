@@ -10,7 +10,14 @@ public class HPReqDto {
 	private String LOCPLC_FACLT_TELNO;
 	private float REFINE_WGS84_LAT;
 	private float REFINE_WGS84_LOGT;
+	private float TOTAL_RANK;
 	
+	public float getTOTAL_RANK() {
+		return TOTAL_RANK;
+	}
+	public void setTOTAL_RANK(float tOTAL_RANK) {
+		TOTAL_RANK = (float) (Math.round(tOTAL_RANK * 10) / 10.0);
+	}
 	public String getSIGUN_NM() {
 		return SIGUN_NM;
 	}

@@ -16,8 +16,9 @@ import javax.servlet.http.HttpSession;
 import com.jsp.animal.domain.user.User;
 import com.jsp.animal.domain.user.dto.JoinReqDto;
 import com.jsp.animal.domain.user.dto.LoginReqDto;
-import com.jsp.animal.search.Animal;
 import com.jsp.animal.search.AnimalDao;
+import com.jsp.animal.search.dto.HPReqDto;
+import com.jsp.animal.service.AnimalService;
 import com.jsp.animal.service.UserService;
 import com.jsp.animal.util.Script;
 
@@ -55,7 +56,7 @@ public class UserController extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
-				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
 				out.print("</script>");
 				out.flush();
 			}
@@ -73,22 +74,10 @@ public class UserController extends HttpServlet {
 					address = str[2];
 				}
 				
-				ArrayList<Animal> animalDto = new ArrayList<Animal>();
-				ArrayList<Animal> animals = new ArrayList<Animal>();
+				ArrayList<HPReqDto> animals = new ArrayList<HPReqDto>();
 				
-				AnimalDao animalDao = new AnimalDao();
-				animalDto = animalDao.addressSearch(cmd, address);
-				
-				for (int i = 0; i < animalDto.size(); i++) {
-					Animal animal = new Animal();
-					animal.setSIGUN_NM(animalDto.get(i).getSIGUN_NM());
-					animal.setBIZPLC_NM(animalDto.get(i).getBIZPLC_NM());
-					animal.setBSN_STATE_NM(animalDto.get(i).getBSN_STATE_NM());
-					animal.setROADNM_ZIP_CD(animalDto.get(i).getROADNM_ZIP_CD());
-					animal.setREFINE_ROADNM_ADDR(animalDto.get(i).getREFINE_ROADNM_ADDR());
-					
-					animals.add(animal);
-				}
+				AnimalService service = new AnimalService();
+				animals = service.addressSearch(cmd, address);
 				
 				request.setAttribute("animals", animals);
 				
@@ -98,7 +87,7 @@ public class UserController extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
-				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
 				out.print("</script>");
 				out.flush();
 			}
@@ -149,15 +138,15 @@ public class UserController extends HttpServlet {
 					address = str[2];
 				}
 				
-				ArrayList<Animal> animalDto = new ArrayList<Animal>();
-				ArrayList<Animal> hosptls = new ArrayList<Animal>();
-				ArrayList<Animal> pharmacys = new ArrayList<Animal>();
+				ArrayList<HPReqDto> animalDto = new ArrayList<HPReqDto>();
+				ArrayList<HPReqDto> hosptls = new ArrayList<HPReqDto>();
+				ArrayList<HPReqDto> pharmacys = new ArrayList<HPReqDto>();
 				
 				AnimalDao animalDao = new AnimalDao();
 				animalDto = animalDao.indexSearch(address);
 				System.out.println(animalDto.size());
 				for (int i = 0; i < animalDto.size(); i++) {
-					Animal animal = new Animal();
+					HPReqDto animal = new HPReqDto();
 					animal.setSIGUN_NM(animalDto.get(i).getSIGUN_NM());
 					animal.setBIZPLC_NM(animalDto.get(i).getBIZPLC_NM());
 					animal.setBSN_STATE_NM(animalDto.get(i).getBSN_STATE_NM());
@@ -192,9 +181,11 @@ public class UserController extends HttpServlet {
 			}
 			out.flush();
 		} else if (cmd.equals("passwordCheck")) { // 회원정보 수정 페이지로 이동 전 비밀번호 체크
-			BufferedReader br = request.getReader();
-			String password = br.readLine();
-			int result = userService.passwordCheck(password);
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			System.out.println(username);
+			System.out.println(password);
+			int result = userService.passwordCheck(username, password);
 			PrintWriter out = response.getWriter();
 			if (result == 1) { 
 				out.print("ok");
@@ -213,11 +204,40 @@ public class UserController extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
-				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
 				out.print("</script>");
 				out.flush();
 			}
-		} 
+		} else if (cmd.equals("userUpdate")) {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				String username = request.getParameter("username");
+				String email = request.getParameter("email");
+				String roadAddress = request.getParameter("roadAddress");
+				String jibunAddress = request.getParameter("jibunAddress");
+				
+				UserService service = new UserService();
+				int result = service.userUpdate(username, email, roadAddress, jibunAddress);
+				PrintWriter out = response.getWriter();
+				if (result == 1) {
+					out.print("ok");
+					LoginReqDto dto = new LoginReqDto(user.getUsername(), user.getPassword());
+					User userEntity = userService.userLogin(dto);
+					session.setAttribute("User", userEntity);
+				} else {
+					out.print("fail");
+				}
+				out.flush();
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
+				out.print("</script>");
+				out.flush();
+			}
+		}
 	}
 
 }

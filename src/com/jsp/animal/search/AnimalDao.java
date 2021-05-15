@@ -18,9 +18,9 @@ public class AnimalDao {
         ResultSet rs = null;
         ArrayList<HPReqDto> animals = new ArrayList<HPReqDto>();
         try {
-        	 pstmt = conn.prepareStatement(sql);
-        	 pstmt.setInt(1, page * 30);
-     		 rs = pstmt.executeQuery();
+        	pstmt = conn.prepareStatement(sql);
+        	pstmt.setInt(1, page * 30);
+     		rs = pstmt.executeQuery();
      		while (rs.next()) {
      			HPReqDto animal = new HPReqDto();
         		animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
@@ -31,7 +31,7 @@ public class AnimalDao {
         			 
         		animals.add(animal);
         	}	 
-     		 return animals;
+     		return animals;
         } catch (Exception e) {
         	e.printStackTrace();
         } finally {
@@ -47,9 +47,9 @@ public class AnimalDao {
         ResultSet rs = null;
         ArrayList<FReqDto> animals = new ArrayList<FReqDto>();
         try {
-        	 pstmt = conn.prepareStatement(sql);
-        	 pstmt.setInt(1, page * 30);
-     		 rs = pstmt.executeQuery();
+        	pstmt = conn.prepareStatement(sql);
+        	pstmt.setInt(1, page * 30);
+     		rs = pstmt.executeQuery();
      		while (rs.next()) {
      			FReqDto animal = new FReqDto();
         		animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
@@ -60,7 +60,7 @@ public class AnimalDao {
         			 
         		animals.add(animal);
         	}	 
-     		 return animals;
+     		return animals;
         } catch (Exception e) {
         	e.printStackTrace();
         } finally {
@@ -88,27 +88,27 @@ public class AnimalDao {
 		return -1;
 	}
 	
-	public ArrayList<Animal> addressSearch(String cmd, String address) { // User의 주소 근처 동물병원, 동물약국 검색
-		String sql = "SELECT * FROM " + cmd + " WHERE REFINE_LOTNO_ADDR LIKE ?";
+	public ArrayList<HPReqDto> addressSearch(String cmd, String address) { // User의 주소 근처 동물병원, 동물약국 검색
+		String sql = "SELECT * FROM " + cmd + " WHERE REFINE_LOTNO_ADDR LIKE ? ORDER BY BIZPLC_NM";
         Connection conn = DB.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        ArrayList<Animal> animals = new ArrayList<Animal>();
+        ArrayList<HPReqDto> animals = new ArrayList<HPReqDto>();
         try {
-        	 pstmt = conn.prepareStatement(sql);
-        	 pstmt.setString(1, "%"+address+"%");
-     		 rs = pstmt.executeQuery();
+        	pstmt = conn.prepareStatement(sql);
+        	pstmt.setString(1, "%"+address+"%");
+     		rs = pstmt.executeQuery();
      		while (rs.next()) {
-        			 Animal animal = new Animal();
-        			 animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
-        			 animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
-        			 animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
-        			 animal.setROADNM_ZIP_CD(rs.getString("ROADNM_ZIP_CD"));
-        			 animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
-        			 animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
-        			 animals.add(animal);
+     			HPReqDto animal = new HPReqDto();
+        		animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
+        		animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
+        		animal.setLOCPLC_FACLT_TELNO(rs.getString("LOCPLC_FACLT_TELNO"));
+        		animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
+        		animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
+        		animal.setTOTAL_RANK(rs.getFloat("TOTAL_RANK"));
+        		animals.add(animal);
         	}     		 
-     		 return animals;
+     		return animals;
         } catch (Exception e) {
         	e.printStackTrace();
         } finally {
@@ -117,26 +117,26 @@ public class AnimalDao {
 		return null;
 	}
 	
-	public ArrayList<Animal> indexSearch(String address) { 
+	public ArrayList<HPReqDto> indexSearch(String address) { 
 		String sql1 = "SELECT * FROM animalhosptl WHERE REFINE_LOTNO_ADDR LIKE ? LIMIT 3";
 		String sql2 = "SELECT * FROM animalpharmacy WHERE REFINE_LOTNO_ADDR LIKE ? LIMIT 3";
         Connection conn = DB.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        ArrayList<Animal> animals = new ArrayList<Animal>();
+        ArrayList<HPReqDto> animals = new ArrayList<HPReqDto>();
         try {
-        	 pstmt = conn.prepareStatement(sql1);
-        	 pstmt.setString(1, "%"+address+"%");
-     		 rs = pstmt.executeQuery();
+        	pstmt = conn.prepareStatement(sql1);
+        	pstmt.setString(1, "%"+address+"%");
+     		rs = pstmt.executeQuery();
      		while (rs.next()) {
-        			 Animal animal = new Animal();
-        			 animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
-        			 animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
-        			 animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
-        			 animal.setROADNM_ZIP_CD(rs.getString("ROADNM_ZIP_CD"));
-        			 animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
-        			 animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
-        			 animals.add(animal);
+     			HPReqDto animal = new HPReqDto();
+        		animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
+        		animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
+        		animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
+        		animal.setROADNM_ZIP_CD(rs.getString("ROADNM_ZIP_CD"));
+        		animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
+        		animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
+        		animals.add(animal);
         	}  
      		rs.close();
      		pstmt.close();
@@ -144,16 +144,16 @@ public class AnimalDao {
      		pstmt.setString(1, "%"+address+"%");
     		rs = pstmt.executeQuery();
     		while (rs.next()) {
-       			 Animal animal = new Animal();
-       			 animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
-       			 animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
-       			 animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
-       			 animal.setROADNM_ZIP_CD(rs.getString("ROADNM_ZIP_CD"));
-       			 animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
-       			 animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
-       			 animals.add(animal);
-       	}     		
-     		 return animals;
+    			HPReqDto animal = new HPReqDto();
+       			animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
+       			animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
+       			animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
+       			animal.setROADNM_ZIP_CD(rs.getString("ROADNM_ZIP_CD"));
+       		    animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
+       			animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
+       			animals.add(animal);
+    		}     		
+     		return animals;
         } catch (Exception e) {
         	e.printStackTrace();
         } finally {
@@ -161,5 +161,24 @@ public class AnimalDao {
         }     
 		return null;
 	}
+	
+	public int hosptlRankUpdate(float rank, String address, String BIZPLC_NM) {
+		String sql = "UPDATE animalhosptl set TOTAL_RANK = ? WHERE BIZPLC_NM = ? AND SIGUN_NM = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setFloat(1, rank);
+			pstmt.setString(2, BIZPLC_NM);
+			pstmt.setString(3, address);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt);
+		}		
+		return -1;
+	}	
 	
 }

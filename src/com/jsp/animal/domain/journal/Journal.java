@@ -8,6 +8,8 @@ public class Journal {
 	private int userId;
 	private String title;
 	private Date treatDate;
+	private String visitHosptl;
+	private int rank;
 	private String content;
 	private Timestamp createDate;
 	
@@ -19,6 +21,18 @@ public class Journal {
 	}
 	public int getUserId() {
 		return userId;
+	}
+	public String getVisitHosptl() {
+		return visitHosptl;
+	}
+	public void setVisitHosptl(String visitHosptl) {
+		this.visitHosptl = visitHosptl;
+	}
+	public int getRank() {
+		return rank;
+	}
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;

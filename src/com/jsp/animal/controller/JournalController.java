@@ -3,6 +3,7 @@ package com.jsp.animal.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import com.jsp.animal.domain.journal.Journal;
 import com.jsp.animal.domain.journal.dto.JournalSaveReqDto;
 import com.jsp.animal.domain.user.User;
+import com.jsp.animal.search.AnimalDao;
+import com.jsp.animal.search.dto.HPReqDto;
+import com.jsp.animal.service.AnimalService;
 import com.jsp.animal.service.JournalService;
 import com.jsp.animal.util.Script;
 
@@ -36,14 +40,26 @@ public class JournalController extends HttpServlet {
 		if (cmd.equals("journalRecordForm")) { // 동물 진료 일지 작성 폼으로 이동
 			User user = (User) session.getAttribute("User");
 			if (user != null) { // User 세션이 있는지 확인
+				String address = "";
+				String str[] = user.getJibunAddress().split(" ");
+				address = str[1];
+				
+				ArrayList<HPReqDto> animalDto = new ArrayList<HPReqDto>();
+				
+				AnimalDao animalDao = new AnimalDao();
+				animalDto = animalDao.addressSearch("animalhosptl", address);
+				
+				request.setAttribute("animalDto", animalDto);
 				request.setAttribute("journalRecordForm", true);
+				request.setAttribute("address", address);
+				
 				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp"); 
 		  	    dis.forward(request, response);
 			} else { // User 세션이 없으면 로그인 폼으로 이동
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
-				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
 				out.print("</script>");
 				out.flush();
 			} 
@@ -68,7 +84,7 @@ public class JournalController extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
-				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
 				out.print("</script>");
 				out.flush();
 			}		
@@ -84,7 +100,7 @@ public class JournalController extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
-				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
 				out.print("</script>");
 				out.flush();
 			}		
@@ -102,8 +118,11 @@ public class JournalController extends HttpServlet {
 			if (user != null) { // User 세션이 있는지 확인
 				int page = Integer.parseInt(request.getParameter("page"));
 				int userId = Integer.parseInt(request.getParameter("userId"));
+				String address = request.getParameter("address");
 				String title = request.getParameter("title").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 				Date treatDate = Date.valueOf(request.getParameter("treatDate"));
+				String visitHosptl = request.getParameter("visit");
+				int rank = Integer.parseInt(request.getParameter("rank"));
 				String content = request.getParameter("content");
 				
 				
@@ -112,9 +131,15 @@ public class JournalController extends HttpServlet {
 				dto.setTitle(title);
 				dto.setTreatDate(treatDate);
 				dto.setContent(content);
+				dto.setVisitHosptl(visitHosptl);
+				dto.setRank(rank);
 
 				int result = journalService.writing(dto);
 				if (result == 1) { // 동물 진료 일지 작성 성공
+					float average = journalService.rankAvg(dto.getVisitHosptl());
+					
+					AnimalService animalService = new AnimalService();
+					animalService.hosptlRankUpdate(average, address, dto.getVisitHosptl());
 					List<Journal> journals = journalService.reading(page, userId); // 데이터베이스에서 동물 진료 일지 검색
 					request.setAttribute("journals", journals);
 					
@@ -133,7 +158,7 @@ public class JournalController extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
-				out.print("window.location.href = '/animal/user/loginForm.jsp';");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
 				out.print("</script>");
 				out.flush();
 			}

@@ -19,7 +19,14 @@
       <div class="card mb-4">
         <div class="card-body">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
+            <select name="query1">
+              <option value="SIGUN_NM">시군명</option>
+              <option value="BIZPLC_NM">사업장명</option>
+              <option value="BSN_STATE_NM">영업상태</option>
+              <option value="ROADNM_ZIP_CD">우편번호</option>
+              <option value="REFINE_ROADNM_ADDR">도로명주소</option>
+            </select>
+            <input type="text" class="form-control" name="query2" placeholder="Search for...">
             <span class="inpug-group-append">
               <button class="btn btn-secondary" type="button">Go!</button>
             </span>

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.jsp.animal.domain.user.User;
-import com.jsp.animal.search.Animal;
 import com.jsp.animal.search.AnimalDao;
 import com.jsp.animal.search.dto.FReqDto;
 import com.jsp.animal.search.dto.HPReqDto;
@@ -81,15 +80,15 @@ public class AnimalController extends HttpServlet {
 					address = str[2];
 				}
 				
-				ArrayList<Animal> animalDto = new ArrayList<Animal>();
-				ArrayList<Animal> hosptls = new ArrayList<Animal>();
-				ArrayList<Animal> pharmacys = new ArrayList<Animal>();
+				ArrayList<HPReqDto> animalDto = new ArrayList<HPReqDto>();
+				ArrayList<HPReqDto> hosptls = new ArrayList<HPReqDto>();
+				ArrayList<HPReqDto> pharmacys = new ArrayList<HPReqDto>();
 				
 				AnimalDao animalDao = new AnimalDao();
 				animalDto = animalDao.indexSearch(address);
 				System.out.println(animalDto.size());
 				for (int i = 0; i < animalDto.size(); i++) {
-					Animal animal = new Animal();
+					HPReqDto animal = new HPReqDto();
 					animal.setSIGUN_NM(animalDto.get(i).getSIGUN_NM());
 					animal.setBIZPLC_NM(animalDto.get(i).getBIZPLC_NM());
 					animal.setBSN_STATE_NM(animalDto.get(i).getBSN_STATE_NM());

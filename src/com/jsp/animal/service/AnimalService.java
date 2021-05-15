@@ -2,7 +2,6 @@ package com.jsp.animal.service;
 
 import java.util.ArrayList;
 
-import com.jsp.animal.search.Animal;
 import com.jsp.animal.search.AnimalDao;
 import com.jsp.animal.search.dto.FReqDto;
 import com.jsp.animal.search.dto.HPReqDto;
@@ -24,8 +23,19 @@ public class AnimalService {
 		return dao.count(cmd);
 	}
 	
-	public ArrayList<Animal> indexSearch(String address) {
+	public ArrayList<HPReqDto> addressSearch(String cmd, String address) {
+		AnimalDao animalDao = new AnimalDao();
+		return animalDao.addressSearch(cmd, address);
+	}
+	
+	public ArrayList<HPReqDto> indexSearch(String address) {
 		AnimalDao animalDao = new AnimalDao();
 		return animalDao.indexSearch(address);
+	}
+	
+	
+	public int hosptlRankUpdate(float rank, String address, String BIZPLC_NM) {
+		AnimalDao animalDao = new AnimalDao();
+		return animalDao.hosptlRankUpdate(rank, address, BIZPLC_NM);
 	}
 }

@@ -30,8 +30,13 @@ public class UserService {
 	}
 	
 	// 패스워드 일치 확인
-	public int passwordCheck(String password) {
-		int result = userDao.passwordCheck(password);
+	public int passwordCheck(String username, String password) {
+		int result = userDao.passwordCheck(username, password);
+		return result;
+	}
+	
+	public int userUpdate(String username, String email, String roadAddress, String jibunAddress) {
+		int result = userDao.userUpdate(username, email, roadAddress, jibunAddress);
 		return result;
 	}
 }

@@ -34,4 +34,7 @@ private JournalDao journalDao;
 		return journalDao.findById(id);
 	}
 	
+	public float rankAvg(String visit) {
+		return journalDao.rankAvg(visit);
+	}
 }

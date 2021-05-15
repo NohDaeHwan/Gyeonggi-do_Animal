@@ -84,14 +84,15 @@ public class UserDao {
 	}
 	
 	// 패스워드 일치 확인
-	public int passwordCheck(String password) {
-		String sql = "SELECT * FROM user WHERE password = ?";
+	public int passwordCheck(String username, String password) {
+		String sql = "SELECT * FROM user WHERE username = ? AND password = ?";
 		Connection conn = DB.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, password);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return 1;
@@ -103,5 +104,26 @@ public class UserDao {
 		}		
 		return -1;
 	}
+	
+	// 패스워드 일치 확인
+		public int userUpdate(String username, String email, String roadAddress, String jibunAddress) {
+			String sql = "UPDATE user SET email = ?, roadAddress = ?, jibunAddress = ? WHERE username = ?";
+			Connection conn = DB.getConnection();
+			PreparedStatement pstmt = null;
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, email);
+				pstmt.setString(2, roadAddress);
+				pstmt.setString(3, jibunAddress);
+				pstmt.setString(4, username);
+				int result = pstmt.executeUpdate();
+				return result;
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				DB.close(conn, pstmt);
+			}		
+			return -1;
+		}	
 	 
 }

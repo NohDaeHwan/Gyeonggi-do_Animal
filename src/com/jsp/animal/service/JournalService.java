@@ -34,6 +34,7 @@ private JournalDao journalDao;
 		return journalDao.findById(id);
 	}
 	
+	// 동물진료일지 등급 평균 구하기
 	public float rankAvg(String visit) {
 		return journalDao.rankAvg(visit);
 	}

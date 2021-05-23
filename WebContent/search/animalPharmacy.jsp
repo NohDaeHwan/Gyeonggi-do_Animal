@@ -17,13 +17,18 @@
     
       <!-- Search Widget -->
       <div class="card mb-4">
-        <div class="card-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="inpug-group-append">
-              <button class="btn btn-secondary" type="button">Go!</button>
-            </span>
-          </div>
+        <div class="card-body">   
+          <form action="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=0" method="post">
+            <div class="input-group">
+              <select name="query1">
+                <option value="SIGUN_NM">시군명</option>
+                <option value="BIZPLC_NM">사업장명</option>
+                <option value="REFINE_ROADNM_ADDR">도로명주소</option>
+              </select>
+              <input type="text" class="form-control" name="query2" value="${query2}" placeholder="Search for...">
+              <input class="btn btn-secondary" type="submit" value="검색">
+            </div>
+          </form>    
         </div>
       </div>
       <!-- /.Search Widget -->
@@ -36,7 +41,7 @@
     	      <th style="background-color: #fafafa; text-align: center;">시군명</th>
     	      <th style="background-color: #fafafa; text-align: center;">사업장명</th>
     	      <th style="background-color: #fafafa; text-align: center;">영업상태</th>
-    	      <th style="background-color: #fafafa; text-align: center;">우편번호</th>
+    	      <th style="background-color: #fafafa; text-align: center;">전화번호</th>
     	      <th style="background-color: #fafafa; text-align: center;">도로명주소</th>
     	    </tr>
           </thead>
@@ -46,7 +51,7 @@
               <td>${animal.SIGUN_NM}</td>
               <td>${animal.BIZPLC_NM}</td>
               <td>${animal.BSN_STATE_NM}</td>
-              <td>${animal.ROADNM_ZIP_CD}</td>
+              <td>${animal.LOCPLC_FACLT_TELNO}</td>
               <td>${animal.REFINE_ROADNM_ADDR}</td>
             </tr>
 	      </c:forEach>
@@ -63,7 +68,7 @@
 		    <a class="page-link">&laquo;</a>
 		  </c:when>
 		  <c:otherwise>
-		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=0">&laquo;</a>
+		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=0&query1=${query1}&query2=${query2}">&laquo;</a>
 		  </c:otherwise>
 	    </c:choose>
 	    </li>
@@ -74,34 +79,90 @@
 		    <a class="page-link">&lt;</a>
 		  </c:when>
 		  <c:otherwise>
-		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${param.page - 1}">&lt;</a>
+		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${param.page - 1}&query1=${query1}&query2=${query2}">&lt;</a>
 		  </c:otherwise>
 	    </c:choose>
 	    </li>
-	  
-	    <c:if test="${param.page >= 4 && param.page < (lastPage - 5)}">
-	      <c:forEach var="num" begin="0" end="7">
-	        <li class="page-item">
-              <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${param.page + num - 2}">${param.page + num - 1}</a>
-	        </li>
-	      </c:forEach>
-	    </c:if>
-	   
-	    <c:if test="${param.page >= (lastPage - 5)}">
-	      <c:forEach var="num" begin="0" end="7">
-	        <li class="page-item">
-              <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${lastPage - (7 - num)}">${lastPage - (6 - num)}</a>
-	        </li>
-	      </c:forEach>
-	    </c:if>
-	   
-		<c:if test="${param.page <= 3}">
-		  <c:forEach var="num" begin="0" end="7">
-	        <li class="page-item">
-              <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${num}">${num + 1}</a>
-	        </li>
-	      </c:forEach>
-		</c:if>
+	    
+	    
+	    
+	    <c:choose>
+	      <c:when test="${lastPage < 15}">
+	      
+	        <c:forEach var="num" begin="0" end="${lastPage}">
+	          <c:choose>
+		  		  <c:when test="${param.page == num}">
+		  			<li class="page-item">
+                	  <a class="page-link"><strong>${num + 1}</strong></a>
+	         	 	</li>
+		  		  </c:when>
+		  		  <c:otherwise>
+		     	    <li class="page-item">
+                	  <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${num}&query1=${query1}&query2=${query2}">${num + 1}</a>
+	          		</li>
+		  		  </c:otherwise>
+	    		</c:choose>   
+	        </c:forEach>
+	        
+	      </c:when>
+	      <c:otherwise>
+	      
+		    <c:if test="${param.page >= 4 && param.page < (lastPage - 5)}">
+		      <c:forEach var="num" begin="0" end="7">
+	            <c:choose>
+		  		  <c:when test="${param.page == param.page + num - 2}">
+		  			<li class="page-item">
+                  	  <a class="page-link"><strong>${param.page + num - 1}</strong></a>
+	     	    	</li>
+		  		  </c:when>
+		  		  <c:otherwise>
+		     	    <li class="page-item">
+                  	  <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${param.page + num - 2}&query1=${query1}&query2=${query2}">${param.page + num - 1}</a>
+	     	    	</li>
+		  		  </c:otherwise>
+	    		</c:choose>
+	          </c:forEach>
+		    </c:if>
+		   
+		    <c:if test="${param.page >= (lastPage - 5)}">
+		      <c:forEach var="num" begin="0" end="7">
+	            <c:choose>
+		  		  <c:when test="${param.page == (lastPage - (7 - num))}">
+					<li class="page-item">
+                      <a class="page-link"><strong>${lastPage - (6 - num)}</strong></a>
+	       	    	</li>
+		  		  </c:when>
+		  		  <c:otherwise>
+		     	    <li class="page-item">
+                  	  <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${lastPage - (7 - num)}&query1=${query1}&query2=${query2}">${lastPage - (6 - num)}</a>
+	       	    	</li>
+		  		  </c:otherwise>
+	    		</c:choose>
+	          </c:forEach>
+		    </c:if>
+		   
+			<c:if test="${param.page <= 3}">
+			  <c:forEach var="num" begin="0" end="7">
+			  	<c:choose>
+		  		  <c:when test="${param.page == num}">
+		  			<li class="page-item">
+	              	  <a class="page-link"><strong>${num + 1}</strong></a>
+		        	</li>
+		  		  </c:when>
+		  		  <c:otherwise>
+		     	    <li class="page-item">
+	              	  <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${num}&query1=${query1}&query2=${query2}">${num + 1}</a>
+		        	</li>
+		  		  </c:otherwise>
+	    		</c:choose>
+		      </c:forEach>
+			</c:if>
+			
+	      </c:otherwise>
+	    </c:choose>	    
+	    
+	    
+	 
 
         <li class="page-item">
         <c:choose>
@@ -109,7 +170,7 @@
 		    <a class="page-link">&gt;</a>
 	      </c:when>
 		  <c:otherwise>
-		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${param.page + 1}">&gt;</a>
+		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${param.page + 1}&query1=${query1}&query2=${query2}">&gt;</a>
 		  </c:otherwise>
 	    </c:choose>
 	    </li>
@@ -120,7 +181,7 @@
 		    <a class="page-link">&raquo;</a>
 	      </c:when>
 		  <c:otherwise>
-		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${lastPage}">&raquo;</a>
+		    <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=${lastPage}&query1=${query1}&query2=${query2}">&raquo;</a>
 		  </c:otherwise>
 	    </c:choose>
 	    </li>  	  

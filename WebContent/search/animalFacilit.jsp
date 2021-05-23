@@ -15,19 +15,6 @@
       </ol>
       <!-- /.Page Heading -->
     
-      <!-- Search Widget -->
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
-            <span class="inpug-group-append">
-              <button class="btn btn-secondary" type="button">Go!</button>
-            </span>
-          </div>
-        </div>
-      </div>
-      <!-- /.Search Widget -->
-    
       <!-- Page Content -->
       <div class="table-responsive">
         <table class="table" style="text-align: center; border: 1px solid #dddddd">
@@ -80,9 +67,18 @@
 	    </li>
 	  
 	    <c:forEach var="num" begin="0" end="${lastPage}">
-	      <li class="page-item">
-            <a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=${num}">${num + 1}</a>
-	      </li>
+	      <c:choose>
+		  	<c:when test="${param.page == num}">
+		  	  <li class="page-item">
+            	<a class="page-link"><strong>${num + 1}</strong></a>
+	      	  </li>
+		  	</c:when>
+		  	<c:otherwise>
+		      <li class="page-item">
+            	<a class="page-link" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=${num}">${num + 1}</a>
+	      	  </li>
+		  	</c:otherwise>
+	      </c:choose>   
 	    </c:forEach>
 
         <li class="page-item">

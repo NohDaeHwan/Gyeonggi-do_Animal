@@ -69,7 +69,7 @@
             </c:choose>
             </div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalhosptl&page=1&data=0"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalhosptl&page=0"> 검색 </a>
             </div>
           </div>
         </div>
@@ -88,7 +88,7 @@
             </c:choose>
             </div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=1&data=0"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalpharmacy&page=0"> 검색 </a>
             </div>
           </div>
         </div>
@@ -97,12 +97,101 @@
             <h4 class="card-header">유기 동물 보호 시설 조회</h4>
             <div class="card-body"><p class="card-text">유기 동물들을 보호하고 있는 시설들을 찾아보세요!</p></div>
             <div class="card-footer">
-              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=1&data=0"> 검색 </a>
+              <a class="btn btn-dark" href="<%=request.getContextPath()%>/search?cmd=animalfacilit&page=0"> 검색 </a>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
+  <hr class="my-0" />
+  
+  <!-- Information Section -->
+  <hr class="my-0" />
+  <section class="py-5 bg-light">
+  <div class="container">
+  <h1 class="mb-4"> 강아지 예방 접종 </h1>
+  <div class="table-responsive">
+        <table class="table" style="text-align: center; border: 1px solid #dddddd">
+          <thead>
+    	    <tr>
+    	      <th style="background-color: #fafafa; text-align: center;"></th>
+    	      <th style="background-color: #fafafa; text-align: center;">최초 접종 시기</th>
+    	      <th style="background-color: #fafafa; text-align: center;">접종 횟수</th>
+    	      <th style="background-color: #fafafa; text-align: center;">추가 접종</th>
+    	    </tr>
+          </thead>
+          <tbody>
+    	    <tr>
+              <th>종합 백신</th>
+              <td>생후 6~8주</td>
+              <td>2~3주 간격 총 5회 이상</td>
+              <td>매년 1회</td>
+            </tr>
+            <tr>
+              <th>코로나 장염</th>
+              <td>생후 6 ~ 8주</td>
+              <td>2~3주 간격 총 2~3회</td>
+              <td>매년 1회</td>
+            </tr>
+            <tr>
+              <th>켄넬코프</th>
+              <td>생후 6 ~ 8주</td>
+              <td>2~3주 간격 총 총 2~3회</td>
+              <td>매년 1회</td>
+            </tr>
+            <tr>
+              <th>신종플루</th>
+              <td>생후 14 ~ 16주</td>
+              <td>2~3주 간격 총 2회</td>
+              <td>매년 1회</td>
+            </tr>
+            <tr>
+              <th>광견병</th>
+              <td>생후 3개월 이후</td>
+              <td>1회</td>
+              <td>매년 1회</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+  <br><br>
+  <div class="container">
+  <h1 class="mb-4"> 고양이 예방 접종 </h1>
+  <div class="table-responsive">
+        <table class="table" style="text-align: center; border: 1px solid #dddddd">
+          <thead>
+    	    <tr>
+    	      <th style="background-color: #fafafa; text-align: center;"></th>
+    	      <th style="background-color: #fafafa; text-align: center;">최초 접종 시기</th>
+    	      <th style="background-color: #fafafa; text-align: center;">접종 횟수</th>
+    	      <th style="background-color: #fafafa; text-align: center;">추가 접종</th>
+    	    </tr>
+          </thead>
+          <tbody>
+    	    <tr>
+              <th>종합 백신</th>
+              <td>생후 7~8주</td>
+              <td>3주 간격 총 2~3회</td>
+              <td>매년 1회</td>
+            </tr>
+            <tr>
+              <th>광견병</th>
+              <td>생후 3개월 이후</td>
+              <td>1회</td>
+              <td>매년 1회</td>
+            </tr>
+            <tr>
+              <th>백혈병</th>
+              <td>생후 7~8주</td>
+              <td>3주 간격 총 2~3회</td>
+              <td>매년 1회</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
   </section>
   <hr class="my-0" />
 

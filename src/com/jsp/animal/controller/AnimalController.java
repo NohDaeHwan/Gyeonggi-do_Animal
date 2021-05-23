@@ -26,21 +26,32 @@ public class AnimalController extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doAnimal(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doAnimal(request, response);
+	}
+	
+	protected void doAnimal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getParameter("cmd");
 		
 		if (cmd.equals("animalhosptl") || cmd.equals("animalpharmacy")) { // 동물병원, 동물약국, 동물보호시설 검색결과 보여주기
 			int page = Integer.parseInt(request.getParameter("page"));	
+			String query1 = request.getParameter("query1");
+			String query2 = request.getParameter("query2");
 				
 			ArrayList<HPReqDto> animals = new ArrayList<HPReqDto>();
 			
 			AnimalService service = new AnimalService();
-			animals = service.searchHP(cmd, page); // 데이터베이스를 통해 데이터 검색
-			int data = service.count(cmd); // 데이터베이스를 통해 데이터 개수 검색
+			animals = service.searchHP(cmd, page, query1, query2); // 데이터베이스를 통해 데이터 검색
+			int data = service.count(cmd, query1, query2); // 데이터베이스를 통해 데이터 개수 검색
 				
-			System.out.println(data);
 			request.setAttribute("animals", animals); 		
 			int lastPage = (data - 1) / 30;
 			request.setAttribute("lastPage", lastPage);
+			request.setAttribute("query1", query1);
+			request.setAttribute("query2", query2);
 			
 			if (cmd.equals("animalhosptl")) { // 동물병원 페이지 보여주기
 				RequestDispatcher dis = request.getRequestDispatcher("search/animalHosptl.jsp"); 
@@ -52,12 +63,14 @@ public class AnimalController extends HttpServlet {
 			
 		} else if (cmd.equals("animalfacilit")) {
 			int page = Integer.parseInt(request.getParameter("page"));
+			String query1 = request.getParameter("query1");
+			String query2 = request.getParameter("query2");
 			
 			ArrayList<FReqDto> animals = new ArrayList<FReqDto>();
 			
 			AnimalService service = new AnimalService();
 			animals = service.searchF(cmd, page); // 데이터베이스를 통해 데이터 검색
-			int data = service.count(cmd); // 데이터베이스를 통해 데이터 개수 검색
+			int data = service.count(cmd, query1, query2); // 데이터베이스를 통해 데이터 개수 검색
 			
 			System.out.println(data);
 			request.setAttribute("animals", animals); 		
@@ -112,11 +125,6 @@ public class AnimalController extends HttpServlet {
 	  	        dis.forward(request, response);	
 			}
 		}
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 	}
 
 }

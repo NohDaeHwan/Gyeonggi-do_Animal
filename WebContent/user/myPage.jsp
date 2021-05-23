@@ -52,7 +52,7 @@
           		  		<td style="text-align: center; font-size: small;">${animal.LOCPLC_FACLT_TELNO}</td>
           		  		<td style="text-align: center; font-size: small;">${animal.REFINE_ROADNM_ADDR}</td>
           		  		<c:if test="${animal.TOTAL_RANK == ''}"><td style="text-align: center; font-size: small;"><strong> X </strong></td></c:if>
-          		  		<c:if test="${animal.TOTAL_RANK != ''}"><td style="text-align: center; font-size: small;"><strong>5 / ${animal.TOTAL_RANK}</strong></td></c:if>       		  		
+          		  		<c:if test="${animal.TOTAL_RANK != ''}"><td style="text-align: center; font-size: small;"><strong>${animal.TOTAL_RANK}/5</strong></td></c:if>       		  		
         			</tr>
 	  				</c:forEach>
       		  	</tbody>

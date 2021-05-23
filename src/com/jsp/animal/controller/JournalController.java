@@ -119,7 +119,7 @@ public class JournalController extends HttpServlet {
 				int page = Integer.parseInt(request.getParameter("page"));
 				int userId = Integer.parseInt(request.getParameter("userId"));
 				String address = request.getParameter("address");
-				String title = request.getParameter("title").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+				String title = request.getParameter("title").replaceAll("<", "&lt;").replaceAll(">", "&gt;"); // <script>코드 방어
 				Date treatDate = Date.valueOf(request.getParameter("treatDate"));
 				String visitHosptl = request.getParameter("visit");
 				int rank = Integer.parseInt(request.getParameter("rank"));

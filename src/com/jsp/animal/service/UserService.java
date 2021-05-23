@@ -12,18 +12,18 @@ public class UserService {
 		userDao = new UserDao();
 	}
 	
-	// 회원가입 서비스
+	// 회원가입
 	public int userJoin(JoinReqDto dto) {
 		int result = userDao.save(dto);
 		return result;
 	}
 	
-	// 로그인 서비스
+	// 로그인
 	public User userLogin(LoginReqDto dto) {
 		return userDao.findByUsername(dto);
 	}
 	
-	// 유저네임 중복 체크 서비스
+	// 유저네임 중복 체크
 	public int usernameCheck(String username) {
 		int result = userDao.usernameCheck(username);
 		return result;
@@ -35,6 +35,7 @@ public class UserService {
 		return result;
 	}
 	
+	// 회원정보 수정
 	public int userUpdate(String username, String email, String roadAddress, String jibunAddress) {
 		int result = userDao.userUpdate(username, email, roadAddress, jibunAddress);
 		return result;

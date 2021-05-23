@@ -87,6 +87,7 @@ public class JournalDao {
 		return -1;
 	}
 	
+	// User 동물 진료 일지 상세보기
 	public Journal findById(int id) {
 		String sql = "SELECT * FROM journal WHERE id = ?";
 		Connection conn = DB.getConnection();
@@ -114,6 +115,7 @@ public class JournalDao {
 		return null;
 	}
 	
+	// 동물진료일지 등급 평균 구하기
 	public float rankAvg(String visit) {
 		String sql = "SELECT AVG(hosptlRank) FROM journal WHERE visitHosptl = ?";
 		Connection conn = DB.getConnection();

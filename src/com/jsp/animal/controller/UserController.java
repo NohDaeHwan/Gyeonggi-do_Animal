@@ -196,11 +196,11 @@ public class UserController extends HttpServlet {
 		} else if (cmd.equals("userUpdateForm")) { // 회원정보 수정 페이지로 이동
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
-			if (user != null) {
+			if (user != null) { // User 세션이 있는지 확인
 				request.setAttribute("update", true);
 				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp");
 				dis.forward(request, response);
-			} else {
+			} else { // User 세션이 없으면 로그인 폼으로 이동
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");
@@ -208,10 +208,10 @@ public class UserController extends HttpServlet {
 				out.print("</script>");
 				out.flush();
 			}
-		} else if (cmd.equals("userUpdate")) {
+		} else if (cmd.equals("userUpdate")) { // 회원정보 수정
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
-			if (user != null) {
+			if (user != null) { // User 세션이 있는지 확인
 				String username = request.getParameter("username");
 				String email = request.getParameter("email");
 				String roadAddress = request.getParameter("roadAddress");
@@ -222,14 +222,14 @@ public class UserController extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				if (result == 1) {
 					out.print("ok");
-					LoginReqDto dto = new LoginReqDto(user.getUsername(), user.getPassword());
+					LoginReqDto dto = new LoginReqDto(user.getUsername(), user.getPassword()); // 세션 변경
 					User userEntity = userService.userLogin(dto);
 					session.setAttribute("User", userEntity);
 				} else {
 					out.print("fail");
 				}
 				out.flush();
-			} else {
+			} else { // User 세션이 없으면 로그인 폼으로 이동
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");

@@ -40,4 +40,16 @@ public class UserService {
 		int result = userDao.userUpdate(username, email, roadAddress, jibunAddress);
 		return result;
 	}
+	
+	// 회원 비밀번호 수정
+	public int userPasswordUpdate(String username, String password) {
+		int result = userDao.userPasswordUpdate(username, password);
+		return result;
+	}
+	
+	// 회원탈퇴
+	public int userWithdrawal(String username, String password) {
+		return userDao.userWithdrawal(username, password);
+	}
+		
 }

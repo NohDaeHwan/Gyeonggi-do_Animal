@@ -24,40 +24,44 @@
           	<a href="<%=request.getContextPath()%>/journal?cmd=journalRecordForm" class="list-group-item" style="color: black;">진료 기록하기</a>
           	<a href="<%=request.getContextPath()%>/user?cmd=animalhosptl" class="list-group-item" style="color: black;">내 주변 동물병원</a>
           	<a href="<%=request.getContextPath()%>/user?cmd=animalpharmacy" class="list-group-item" style="color: black;">내 주변 동물약국</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=PasswordCheckForm" class="list-group-item" style="color: black;">회원정보수정</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=PasswordUpdateForm" class="list-group-item" style="color: black;">비밀번호변경</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=UserWithdrawal" class="list-group-item" style="color: black;">회원탈퇴</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=passwordCheckForm1" class="list-group-item" style="color: black;">회원정보수정</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=passwordUpdateForm" class="list-group-item" style="color: black;">비밀번호변경</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=passwordCheckForm2" class="list-group-item" style="color: black;">회원탈퇴</a>
           </div>
       	</div>
       	<!-- /.Sidebar Column -->
       
       	<!-- Content Column -->
       	<c:if test="${animals != null}"> <%-- 내 주변 동물병원 || 내 주변 동물약국 보여주기 --%>
-      	<div class="col-lg-9 mb-4">
+      	  <div class="col-lg-9 mb-4">
             <table class="table table-bordered table-sm">
-      	      	<thead>
-    		    	<tr>
-    	  		  		<th style="background-color: #fafafa; text-align: center;">사업장명</th>
-    	  		  		<th style="background-color: #fafafa; text-align: center;">상태</th>
-    	  		  		<th style="background-color: #fafafa; text-align: center;">전화번호</th>
-    	  	 	  		<th style="background-color: #fafafa; text-align: center;">도로명주소</th>
-    	  		  		<th style="background-color: #fafafa; text-align: center;">평점</th>
-    				</tr>
-      	      	</thead>
-      	      	<tbody>
-      		   		<c:forEach var="animal" items="${animals}">
-    				<tr>
-         		  		<td style="text-align: center; font-size: small;">${animal.BIZPLC_NM}</td>
-          		  		<td style="text-align: center; font-size: small;">${animal.BSN_STATE_NM}</td>
-          		  		<td style="text-align: center; font-size: small;">${animal.LOCPLC_FACLT_TELNO}</td>
-          		  		<td style="text-align: center; font-size: small;">${animal.REFINE_ROADNM_ADDR}</td>
-          		  		<c:if test="${animal.TOTAL_RANK == ''}"><td style="text-align: center; font-size: small;"><strong> X </strong></td></c:if>
-          		  		<c:if test="${animal.TOTAL_RANK != ''}"><td style="text-align: center; font-size: small;"><strong>${animal.TOTAL_RANK}/5</strong></td></c:if>       		  		
-        			</tr>
-	  				</c:forEach>
-      		  	</tbody>
+      	      <thead>
+    		    <tr>
+    	  		  <th style="background-color: #fafafa; text-align: center;">사업장명</th>
+    	  		  <th style="background-color: #fafafa; text-align: center;">상태</th>
+    	  		  <th style="background-color: #fafafa; text-align: center;">전화번호</th>
+    	  	 	  <th style="background-color: #fafafa; text-align: center;">도로명주소</th>
+    	  	 	  <c:if test="${cmd == true}"> <%-- 동물병원일 경우 평점 표시 --%>
+    	  		    <th style="background-color: #fafafa; text-align: center;">평점</th>
+    	  		  </c:if>
+    			</tr>
+      	      </thead>
+      	      <tbody>
+      		   	<c:forEach var="animal" items="${animals}">
+    			<tr>
+         		  <td style="text-align: center; font-size: small;">${animal.BIZPLC_NM}</td>
+          		  <td style="text-align: center; font-size: small;">${animal.BSN_STATE_NM}</td>
+          		  <td style="text-align: center; font-size: small;">${animal.LOCPLC_FACLT_TELNO}</td>
+          		  <td style="text-align: center; font-size: small;">${animal.REFINE_ROADNM_ADDR}</td>
+      	    	  <c:if test="${cmd == true}"> <%-- 동물병원일 경우 평점 표시 --%>
+      	      		<c:if test="${animal.TOTAL_RANK == ''}"><td style="text-align: center; font-size: small;"><strong> X </strong></td></c:if>
+          	  		<c:if test="${animal.TOTAL_RANK != ''}"><td style="text-align: center; font-size: small;"><strong>${animal.TOTAL_RANK}/5</strong></td></c:if> 
+          		  </c:if>
+      	  		</tr>
+	  			</c:forEach>
+      		  </tbody>
     		</table>
-      	</div>
+      	  </div>
       	</c:if>
       	
       	<c:if test="${journalRecordForm == true}"> <%-- 동물 진료 일지 등록하기 --%>
@@ -66,11 +70,11 @@
       				<input type="hidden" name="userId" value="${sessionScope.User.id}" />
       				<div class="form-group">
       					<label for="title"><strong>제목:</strong></label>
-      					<input type="text" class="form-control" placeholder="제목을 입력해주세요~!!" id="title" name="title" />
+      					<input type="text" class="form-control" placeholder="제목을 입력해주세요~!!" id="title" name="title" required/>
       				</div>
       				<div class="form-group">
       					<label for="treatDate"><strong>진료일자:</strong></label>
-      					<input type="date" class="form-control" id="treatDate" name="treatDate" />
+      					<input type="date" class="form-control" id="treatDate" name="treatDate" required/>
       				</div>
       				<div class="form-group">
       					<label for="visit"><strong>방문한병원:</strong></label>
@@ -171,7 +175,7 @@
       	
       	<c:if test="${update == true}"> <%-- 비밀번호 체크가 완료되면 회원정보수정 페이지 보여주기 --%>
       	<div class="col-lg-8 mb-4">
-        	<form action="#" method="post">
+        	<form action="#" method="post" onsubmit="return userUpdate()">
           		<div class="control-group form-group">
             		<div class="controls">
               			<label for="userid"><strong>아이디 :</strong> </label>
@@ -193,10 +197,85 @@
               			<input type="text" class="form-control" id="jibunAddress" name="jibunAddress" value="${sessionScope.User.jibunAddress}" required readonly>
             		</div>
           		</div>
-          		<button type="button" class="btn btn-dark" onclick="userUpdate();">회원정보수정</button>
+          		<button type="submit" class="btn btn-dark">회원정보 수정</button>
         	</form>
       	</div>
       	</c:if>	  
+      	
+      	<c:if test="${passwordUpdate == true}"> <%-- 회원 비밀번호 변경 --%>
+      	<div class="col-lg-8 mb-4">
+        	<form action="#" method="post" onsubmit="return userPassword()">
+        	    <input type="hidden" id="username" name="username" value="${sessionScope.User.username}">
+          		<div class="control-group form-group">
+            		<div class="controls">
+              			<label for=psPassword"><strong>현재 비밀번호 :</strong> </label>
+              			<input type="password" class="form-control" id="psPassword" name="psPassword" required>
+              			<p class="help-block"></p>
+            		</div>
+          		</div>
+          		<div class="control-group form-group">
+            		<div class="controls">
+              			<label for="password"><strong>새 비밀번호 :</strong> </label>
+              			<input type="password" class="form-control" id="password" name="password" required>
+              			<p class="help-block"></p>
+            		</div>
+          		</div>
+          		<div class="control-group form-group">
+            		<div class="controls">
+              			<label for="passwordOK"><strong>새 비밀번호 확인 :</strong></label>
+              			<input type="password" class="form-control" id="passwordOK" name="passwordOK" required>
+            		</div>
+          		</div>
+          		<button type="submit" class="btn btn-dark">확인</button>
+        	</form>
+      	</div>
+      	</c:if>
+      	
+      	<c:if test="${withdrawalPrePasswordCheck == true}"> <%-- 회원 탈퇴 전 비밀번호 확인하기 --%>
+      	<div class="col-lg-8 mb-4">
+        	<form action="<%=request.getContextPath()%>/user?cmd=userWithdrawalForm" method="post" onsubmit="return valid()">
+          		<div class="control-group form-group">
+            		<div class="controls">
+              			<label for="id"><strong>아이디 :</strong> </label>
+              			<input type="text" class="form-control" id="id" name="id" value="${sessionScope.User.username}" required readonly>
+              			<p class="help-block"></p>
+            		</div>
+          		</div>
+          		<div class="control-group form-group">
+            		<div class="controls">
+              			<label for="password"><strong>비밀번호 :</strong></label>
+              			<input type="password" class="form-control" id="password" name="password" required>
+            		</div>
+          		</div>
+          		<button type="submit" class="btn btn-dark">확인</button>
+        	</form>
+      	</div>
+      	</c:if>
+      	
+      	<c:if test="${withdrawal == true}"> <%-- 회원 탈퇴하기 --%>
+      	<div class="col-lg-8 mb-4">
+      		<br />
+      		<h5># 회원 탈퇴</h5>
+      		<div class="card m-1">
+      			<div class="card-body">
+      				<h6 class="card-title" style="color: blue;">동물 지킴이를 이용해주셔서 감사합니다.</h6>
+      			</div>
+      			<ul>
+      				<li>회원탈퇴 시 모든 회원정보와 동물일지 작성내역 등이 자동으로 삭제 처리되며, 복구가 불가합니다.</li>
+      				<li>내 주변 동물병원, 동물약국을 확인 할 수 없습니다.</li>
+      			</ul>
+      			<br />
+      		</div>
+      		<br />
+      		<form action="<%=request.getContextPath()%>/user?cmd=withdrawal" method="post" onsubmit="return withdrawal()">
+      			<input type="checkbox" id="agreeCheck" name="agreeCheck"><strong> 회원탈퇴에 대한 동의 (필수)</strong><br />
+      			<p>위 내용을 모두 확인하였으며, 모든 정보는 복구가 불가능합니다. 회원탈퇴에 동의하시겠습니까?</p>
+      		    <input type="submit" class="btn btn-dark" value="회원 탈퇴">
+      		</form>
+          	
+      	</div>
+      	</c:if>
+      	
       	<!-- /.Content Column -->
   
 	  </div>
@@ -222,7 +301,9 @@
 
   <script>	
 	var isChecking = false;
+	var is
 	
+	// 회원정보 수정 전 비밀번호 검사
 	function valid() {
 		var username = $("#id").val();
 		var password = $("#password").val();
@@ -245,6 +326,56 @@
 		return isChecking;
 	}
 	
+	// 회원 비밀번호 변경
+	function userPassword() { 
+		var username = $("#username").val();
+		var psPassword = $("#psPassword").val();
+		var password = $("#password").val();
+		var passwordOK = $("#passwordOK").val();
+		var checking = false;
+		console.log(username, psPassword, password, passwordOK);
+		
+		$.ajax({
+			type: "POST",
+			url: "/Animal_Project/user?cmd=passwordCheck",
+			data: {username : username, password : psPassword},
+			dataType: "text"
+		}).done(function(data) {
+			if (data === 'ok') {
+				if (password == passwordOK) {
+					$.ajax({
+						type: "POST",
+						url: "/animal/user?cmd=userPasswordUpdate",
+					    data: {username: username, password: password},
+					    dataType: "text"
+					}).done(function(data) {
+						if (data === 'ok') {
+							alert('비밀번호를 변경했습니다');
+							checking = true;
+							window.location.reload();
+						} else {
+							alert('비밀번호 변경에 실패했습니다');
+							checking = false;
+						}
+					});
+				} else {
+					alert('새 비밀번호가 일치하지 않습니다');
+					$("#password").focus();
+					$("#password").val('');
+					$("#passwordOK").val('');
+					checking = false;
+				}
+			} else {
+				alert('현재 비밀번호가 올바르지 않습니다');
+				$("#psPassword").focus();
+				checking = false;
+			}
+		});
+		
+		return checking;
+	}
+	
+	// 회원정보 변경
 	function userUpdate() {
 		var result = confirm('회원정보를 수정하시겠습니까?');
 
@@ -253,6 +384,7 @@
 			var email = $("#email").val();
 			var roadAddress = $("#roadAddress").val();
 			var jibunAddress = $("#jibunAddress").val();
+			var checking = false;
 			
 			console.log(username, email, roadAddress, jibunAddress);
 			$.ajax({
@@ -263,13 +395,30 @@
 			}).done(function(data) {
 				if (data === 'ok') {
 					alert('회원정보를 수정했습니다');
+					checking = true;
 					window.location.reload();
 				} else {
 					alert('회원정보 수정을 실패했습니다');
+					checking = false;
 				}
 			});
 		} 
+		return checking;
+	}
+	
+	function withdrawal() {
+		var agreeCheck = $("#agreeCheck").prop("checked");
+		var result = confirm('지금 탈퇴하시면 동물일지 내역이 탈퇴와 동시에 소멸됩니다.\n회원을 정말 탈퇴하시겠습니까?');
 		
+		if (result == true) {
+			if (agreeCheck == false) {
+				alert('회원탈퇴 동의에 체크해주세요.');
+			}
+		} else {
+			agreeCheck = false;
+		}
+		
+		return agreeCheck;
 	}
 	
 	function goPopup() {

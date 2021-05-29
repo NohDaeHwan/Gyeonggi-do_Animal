@@ -45,7 +45,7 @@ public class UserController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.sendRedirect("index.jsp");
-		} else if (cmd.equals("PasswordCheckForm")) { // 회원정보 수정 페이지로 이동 전 비밀번호 체크 페이지로 이동
+		} else if (cmd.equals("passwordCheckForm1")) { // 회원정보 수정 페이지로 이동 전 비밀번호 체크 페이지로 이동
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) {
@@ -60,7 +60,37 @@ public class UserController extends HttpServlet {
 				out.print("</script>");
 				out.flush();
 			}
-		} else if (cmd.equals("animalhosptl") || cmd.equals("animalpharmacy")) { // User 주변 동물병원 보여주기
+		} else if (cmd.equals("passwordCheckForm2")) {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				request.setAttribute("withdrawalPrePasswordCheck", true);
+				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp");
+				dis.forward(request, response);
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
+				out.print("</script>");
+				out.flush();
+			}
+		} else if (cmd.equals("passwordUpdateForm")) {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				request.setAttribute("passwordUpdate", true);
+				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp");
+				dis.forward(request, response);
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
+				out.print("</script>");
+				out.flush();
+			}
+		} else if (cmd.equals("animalhosptl") || cmd.equals("animalpharmacy")) { // User 주변 동물병원, 동물약국 보여주기
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) {
@@ -80,7 +110,10 @@ public class UserController extends HttpServlet {
 				animals = service.addressSearch(cmd, address);
 				
 				request.setAttribute("animals", animals);
-				
+				if (cmd.equals("animalhosptl")) {
+					request.setAttribute("cmd", true);
+				}
+
 				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp"); 
 		  	    dis.forward(request, response);	
 			} else {
@@ -138,27 +171,12 @@ public class UserController extends HttpServlet {
 					address = str[2];
 				}
 				
-				ArrayList<HPReqDto> animalDto = new ArrayList<HPReqDto>();
 				ArrayList<HPReqDto> hosptls = new ArrayList<HPReqDto>();
 				ArrayList<HPReqDto> pharmacys = new ArrayList<HPReqDto>();
 				
 				AnimalDao animalDao = new AnimalDao();
-				animalDto = animalDao.indexSearch(address);
-				System.out.println(animalDto.size());
-				for (int i = 0; i < animalDto.size(); i++) {
-					HPReqDto animal = new HPReqDto();
-					animal.setSIGUN_NM(animalDto.get(i).getSIGUN_NM());
-					animal.setBIZPLC_NM(animalDto.get(i).getBIZPLC_NM());
-					animal.setBSN_STATE_NM(animalDto.get(i).getBSN_STATE_NM());
-					animal.setROADNM_ZIP_CD(animalDto.get(i).getROADNM_ZIP_CD());
-					animal.setREFINE_ROADNM_ADDR(animalDto.get(i).getREFINE_ROADNM_ADDR());
-					
-					if (i < 3) {
-						hosptls.add(animal);
-					} else {
-						pharmacys.add(animal);
-					}				
-				}
+				hosptls = animalDao.indexSearch("animalhosptl", address);
+				pharmacys = animalDao.indexSearch("animalpharmacy", address);
 				
 				request.setAttribute("hosptls", hosptls);		
 				request.setAttribute("pharmacys", pharmacys);
@@ -166,7 +184,7 @@ public class UserController extends HttpServlet {
 				RequestDispatcher dis = request.getRequestDispatcher("main.jsp");
 				dis.forward(request, response);
 			} else { // 로그인 실패
-				Script.back(response, "로그인 실패");
+				Script.back(response, "일치하는 회원이 없습니다.");
 			}			
 		} else if (cmd.equals("usernameCheck")) { // 유저네임 중복 체크
 			BufferedReader br =  request.getReader();
@@ -230,6 +248,78 @@ public class UserController extends HttpServlet {
 				}
 				out.flush();
 			} else { // User 세션이 없으면 로그인 폼으로 이동
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
+				out.print("</script>");
+				out.flush();
+			}
+		} else if (cmd.equals("userPasswordUpdate")) {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) { // User 세션이 있는지 확인
+				String username = request.getParameter("username");
+				String password = request.getParameter("password");
+				
+				UserService service = new UserService();
+				int result = service.userPasswordUpdate(username, password);
+				PrintWriter out = response.getWriter();
+				if (result == 1) {
+					out.print("ok");
+					LoginReqDto dto = new LoginReqDto(username, password); // 세션 변경
+					User userEntity = userService.userLogin(dto);
+					session.setAttribute("User", userEntity);
+				} else {
+					out.print("fail");
+				}
+				out.flush();
+			} else { // User 세션이 없으면 로그인 폼으로 이동
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
+				out.print("</script>");
+				out.flush();
+			}
+		} else if (cmd.equals("userWithdrawalForm")) {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				request.setAttribute("withdrawal", true);
+				RequestDispatcher dis = request.getRequestDispatcher("user/myPage.jsp");
+				dis.forward(request, response);
+			} else {
+				PrintWriter out = response.getWriter();
+				out.print("<script>");
+				out.print("alert('로그인을 해주세요');");
+				out.print("window.location.href = '/animal/user?cmd=loginForm';");
+				out.print("</script>");
+				out.flush();
+			}
+		} else if (cmd.equals("withdrawal")) {
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("User");
+			if (user != null) {
+				UserService service = new UserService();
+				int result =  service.userWithdrawal(user.getUsername(), user.getPassword());
+				if (result == 1) {
+					session.invalidate();
+					PrintWriter out = response.getWriter();
+					out.print("<script>");
+					out.print("alert('회원 탈퇴를 성공했습니다.');");
+					out.print("window.location.href = '/animal/index.jsp';");
+					out.print("</script>");
+					out.flush();
+				} else {
+					PrintWriter out = response.getWriter();
+					out.print("<script>");
+					out.print("alert('회원 탈퇴에 실패했습니다.');");
+					out.print("window.location.reload();");
+					out.print("</script>");
+					out.flush();
+				}
+			} else {
 				PrintWriter out = response.getWriter();
 				out.print("<script>");
 				out.print("alert('로그인을 해주세요');");

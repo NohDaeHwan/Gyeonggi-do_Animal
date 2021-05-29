@@ -139,15 +139,14 @@ public class AnimalDao {
 	}
 	
 	// 메인페이지에 동물병원, 둥물약국 3개씩 보여주기
-	public ArrayList<HPReqDto> indexSearch(String address) { 
-		String sql1 = "SELECT * FROM animalhosptl WHERE REFINE_LOTNO_ADDR LIKE ? LIMIT 3";
-		String sql2 = "SELECT * FROM animalpharmacy WHERE REFINE_LOTNO_ADDR LIKE ? LIMIT 3";
+	public ArrayList<HPReqDto> indexSearch(String cmd, String address) { 
+		String sql = "SELECT * FROM " + cmd + " WHERE REFINE_LOTNO_ADDR LIKE ? ORDER BY BIZPLC_NM LIMIT 3";
         Connection conn = DB.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         ArrayList<HPReqDto> animals = new ArrayList<HPReqDto>();
         try {
-        	pstmt = conn.prepareStatement(sql1);
+        	pstmt = conn.prepareStatement(sql);
         	pstmt.setString(1, "%"+address+"%");
      		rs = pstmt.executeQuery();
      		while (rs.next()) {
@@ -156,25 +155,11 @@ public class AnimalDao {
         		animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
         		animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
         		animal.setROADNM_ZIP_CD(rs.getString("ROADNM_ZIP_CD"));
-        		animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
+        		animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR").substring(4));
         		animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
+        		animal.setTOTAL_RANK(rs.getFloat("TOTAL_RANK"));
         		animals.add(animal);
         	}  
-     		rs.close();
-     		pstmt.close();
-     		pstmt = conn.prepareStatement(sql2);
-     		pstmt.setString(1, "%"+address+"%");
-    		rs = pstmt.executeQuery();
-    		while (rs.next()) {
-    			HPReqDto animal = new HPReqDto();
-       			animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
-       			animal.setBIZPLC_NM(rs.getString("BIZPLC_NM"));
-       			animal.setBSN_STATE_NM(rs.getString("BSN_STATE_NM"));
-       			animal.setROADNM_ZIP_CD(rs.getString("ROADNM_ZIP_CD"));
-       		    animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
-       			animal.setREFINE_LOTNO_ADDR(rs.getString("REFINE_LOTNO_ADDR"));
-       			animals.add(animal);
-    		}     		
      		return animals;
         } catch (Exception e) {
         	e.printStackTrace();

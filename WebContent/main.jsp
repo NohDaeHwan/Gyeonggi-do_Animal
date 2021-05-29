@@ -62,6 +62,8 @@
           	  <c:when test="${hosptls != null}">
           		<c:forEach var="hosptl" items="${hosptls}">
           		  <p class="card-text">${hosptl.REFINE_ROADNM_ADDR}<br></p>
+          		  <c:if test="${hosptl.TOTAL_RANK == ''}"><p class="card-text" style="font-size: small;"><strong>평점 : X </strong></p></c:if>
+          	  	  <c:if test="${hosptl.TOTAL_RANK != ''}"><p class="card-text" style="font-size: small;"><strong>평점 : ${hosptl.TOTAL_RANK}/5</strong></p></c:if>
           		</c:forEach>
           		<a href="<%=request.getContextPath()%>/user?cmd=animalhosptl" style="text-decoration: none;">내 주변 동물병원 보러가기 --></a>
           	  </c:when>

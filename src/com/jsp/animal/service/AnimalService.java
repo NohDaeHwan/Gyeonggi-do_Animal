@@ -33,9 +33,9 @@ public class AnimalService {
 	}
 	
 	// 메인페이지에 동물병원, 둥물약국 3개씩 보여주기
-	public ArrayList<HPReqDto> indexSearch(String address) {
+	public ArrayList<HPReqDto> indexSearch(String cmd, String address) {
 		AnimalDao animalDao = new AnimalDao();
-		return animalDao.indexSearch(address);
+		return animalDao.indexSearch(cmd, address);
 	}
 	
 	// 진료일지 등록시 병원 평점 변경

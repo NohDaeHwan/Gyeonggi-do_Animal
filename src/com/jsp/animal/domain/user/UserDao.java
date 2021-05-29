@@ -125,5 +125,43 @@ public class UserDao {
 		}		
 		return -1;
 	}	
+	
+	// 회원 비밀번호 수정
+	public int userPasswordUpdate(String username, String password) {
+		String sql = "UPDATE user SET password = ? WHERE username = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, password);
+			pstmt.setString(2, username);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt);
+		}		
+		return -1;
+	}	
+	
+	// 회원 탈퇴
+	public int userWithdrawal(String username, String password) {
+		String sql = "DELETE FROM user WHERE username = ? AND password = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt);
+		}		
+		return -1;
+	}	
 	 
 }

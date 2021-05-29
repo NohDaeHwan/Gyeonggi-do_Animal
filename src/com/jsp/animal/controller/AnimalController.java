@@ -36,7 +36,7 @@ public class AnimalController extends HttpServlet {
 	protected void doAnimal(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getParameter("cmd");
 		
-		if (cmd.equals("animalhosptl") || cmd.equals("animalpharmacy")) { // 동물병원, 동물약국, 동물보호시설 검색결과 보여주기
+		if (cmd.equals("animalhosptl") || cmd.equals("animalpharmacy")) { // 동물병원, 동물약국 검색결과 보여주기
 			int page = Integer.parseInt(request.getParameter("page"));	
 			String query1 = request.getParameter("query1");
 			String query2 = request.getParameter("query2");
@@ -61,7 +61,7 @@ public class AnimalController extends HttpServlet {
 	  	        dis.forward(request, response);
 			}
 			
-		} else if (cmd.equals("animalfacilit")) {
+		} else if (cmd.equals("animalfacilit")) { // 동물보호시설 검색결과 보여주기
 			int page = Integer.parseInt(request.getParameter("page"));
 			String query1 = request.getParameter("query1");
 			String query2 = request.getParameter("query2");
@@ -79,7 +79,7 @@ public class AnimalController extends HttpServlet {
 			
 			RequestDispatcher dis = request.getRequestDispatcher("search/animalFacilit.jsp");
 			dis.forward(request, response);		
-		} else if (cmd.equals("index")) {
+		} else if (cmd.equals("index")) { // 메인페이지에 내 주변 동물병원, 동물약국 3개 보여주기
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) {
@@ -93,27 +93,12 @@ public class AnimalController extends HttpServlet {
 					address = str[2];
 				}
 				
-				ArrayList<HPReqDto> animalDto = new ArrayList<HPReqDto>();
 				ArrayList<HPReqDto> hosptls = new ArrayList<HPReqDto>();
 				ArrayList<HPReqDto> pharmacys = new ArrayList<HPReqDto>();
 				
 				AnimalDao animalDao = new AnimalDao();
-				animalDto = animalDao.indexSearch(address);
-				System.out.println(animalDto.size());
-				for (int i = 0; i < animalDto.size(); i++) {
-					HPReqDto animal = new HPReqDto();
-					animal.setSIGUN_NM(animalDto.get(i).getSIGUN_NM());
-					animal.setBIZPLC_NM(animalDto.get(i).getBIZPLC_NM());
-					animal.setBSN_STATE_NM(animalDto.get(i).getBSN_STATE_NM());
-					animal.setROADNM_ZIP_CD(animalDto.get(i).getROADNM_ZIP_CD());
-					animal.setREFINE_ROADNM_ADDR(animalDto.get(i).getREFINE_ROADNM_ADDR());
-					
-					if (i < 3) {
-						hosptls.add(animal);
-					} else {
-						pharmacys.add(animal);
-					}				
-				}
+				hosptls = animalDao.indexSearch("animalhosptl", address);
+				pharmacys = animalDao.indexSearch("animalpharmacy", address);
 				
 				request.setAttribute("hosptls", hosptls);		
 				request.setAttribute("pharmacys", pharmacys);

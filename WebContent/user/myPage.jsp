@@ -337,7 +337,7 @@
 		
 		$.ajax({
 			type: "POST",
-			url: "/Animal_Project/user?cmd=passwordCheck",
+			url: "/animal/user?cmd=passwordCheck",
 			data: {username : username, password : psPassword},
 			dataType: "text"
 		}).done(function(data) {

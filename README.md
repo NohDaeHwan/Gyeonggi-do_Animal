@@ -41,32 +41,15 @@ CREATE TABLE user(
     createDate timestamp
 ) engine=InnoDB default charset=utf8;
 
-CREATE TABLE board(
-    id int primary key auto_increment,
-    userId int,
-    title varchar(30) not null,
-    content longtext,
-    readCount int default 0,
-    createDate timestamp,
-    foreign key (userId) references user (id)
-) engine=InnoDB default charset=utf8;
-
-CREATE TABLE reply(
-    id int primary key auto_increment,
-    userId int,
-    boardId int,
-    content varchar(300) not null,
-    createDate timestamp,
-    foreign key (userId) references user (id) on delete set null,
-    foreign key (boardId) references board (id) on delete cascade
-) engine=InnoDB default charset=utf8;
-
 CREATE TABLE journal(
     id int primary key auto_increment,
     userId int,
     title varchar(30) not null,
+    treateDate varchar(10) not null,
+    visitHosptl varchar(20) not null,
+    hosptlRank int not null,
     content longtext,
     createDate timestamp,
-    foreign key (userId) references user (id) on delete set null,
+    foreign key (userId) references user (id)
 ) engine=InnoDB default charset=utf8;
 ```

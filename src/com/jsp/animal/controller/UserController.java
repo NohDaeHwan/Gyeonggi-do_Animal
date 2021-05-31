@@ -60,7 +60,7 @@ public class UserController extends HttpServlet {
 				out.print("</script>");
 				out.flush();
 			}
-		} else if (cmd.equals("passwordCheckForm2")) {
+		} else if (cmd.equals("passwordCheckForm2")) { // 회원정보 탈퇴 페이지로 이동 전 비밀번호 체크 페이지로 이동
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) {
@@ -75,7 +75,7 @@ public class UserController extends HttpServlet {
 				out.print("</script>");
 				out.flush();
 			}
-		} else if (cmd.equals("passwordUpdateForm")) {
+		} else if (cmd.equals("passwordUpdateForm")) { // 비밀번호 변경 페이지로 이동
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) {
@@ -255,7 +255,7 @@ public class UserController extends HttpServlet {
 				out.print("</script>");
 				out.flush();
 			}
-		} else if (cmd.equals("userPasswordUpdate")) {
+		} else if (cmd.equals("userPasswordUpdate")) { // 회원 비밀번호 변경
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) { // User 세션이 있는지 확인
@@ -282,7 +282,7 @@ public class UserController extends HttpServlet {
 				out.print("</script>");
 				out.flush();
 			}
-		} else if (cmd.equals("userWithdrawalForm")) {
+		} else if (cmd.equals("userWithdrawalForm")) { // 회원탈퇴 페이지 보여주기
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) {
@@ -297,7 +297,7 @@ public class UserController extends HttpServlet {
 				out.print("</script>");
 				out.flush();
 			}
-		} else if (cmd.equals("withdrawal")) {
+		} else if (cmd.equals("withdrawal")) { // 회원탈퇴하기
 			HttpSession session = request.getSession();
 			User user = (User) session.getAttribute("User");
 			if (user != null) {

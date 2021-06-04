@@ -204,7 +204,7 @@
       <div class="row">
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
-            <a href="knowledge/knowledge1.jsp"><img class="card-img-top" src="img/bone.png" alt="" /></a>
+            <a href="knowledge/knowledge1.jsp"><img class="card-img-top" src="img/dislocations.png" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="knowledge/knowledge1.jsp"> 강아지 슬개골 탈구 증상과 치료, 관리법은? </a>
@@ -215,7 +215,7 @@
         </div>
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
-            <a href="knowledge/knowledge2.jsp"><img class="card-img-top" src="img/antibacterial.png" alt="" /></a>
+            <a href="knowledge/knowledge2.jsp"><img class="card-img-top" src="img/allergy.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="knowledge/knowledge2.jsp"> 강아지 알레르기 증상과 원인에 따른 관리법은? </a>
@@ -226,7 +226,7 @@
         </div>
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
-            <a href="knowledge/knowledge3.jsp"><img class="card-img-top" src="img/heart.png" alt="" /></a>
+            <a href="knowledge/knowledge3.jsp"><img class="card-img-top" src="img/heartDisease.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="knowledge/knowledge3.jsp"> 강아지 심장 질환, 기침한다면 의심해야 해요! </a>
@@ -237,7 +237,7 @@
         </div>
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
-            <a href="knowledge/knowledge4.jsp"><img class="card-img-top" src="img/leech.png" alt="" /></a>
+            <a href="knowledge/knowledge4.jsp"><img class="card-img-top" src="img/cystitis.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="knowledge/knowledge4.jsp"> 고양이 방광염, 관리가 가장 중요해요! </a>
@@ -248,7 +248,7 @@
         </div>
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
-            <a href="knowledge/knowledge5.jsp"><img class="card-img-top" src="img/dentist.png" alt="" /></a>
+            <a href="knowledge/knowledge5.jsp"><img class="card-img-top" src="img/stomatitis.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="knowledge/knowledge5.jsp"> 고양이 구내염? 대표적인 치과 질병 알아보기 </a>
@@ -259,7 +259,7 @@
         </div>
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
-            <a href="knowledge/knowledge6.jsp"><img class="card-img-top" src="img/pills.png" alt="" /></a>
+            <a href="knowledge/knowledge6.jsp"><img class="card-img-top" src="img/herpiece.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
                 <a href="knowledge/knowledge6.jsp"> 고양이 허피스, 그냥 감기라고 생각하면 안 돼요! </a>

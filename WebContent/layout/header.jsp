@@ -12,8 +12,8 @@
   <meta name="author" content="" />
   <title>경기 동물 지킴이</title>
 
-  <!-- Favicon-->
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
   <!-- Font Awesome icons (free version)-->
   <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
   <!-- Core theme CSS (includes Bootstrap)-->

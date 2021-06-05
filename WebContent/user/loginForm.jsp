@@ -6,7 +6,7 @@
   <div class="container">
 
     <!-- Page Heading -->
-    <h1 class="mt-4 mb-3"><strong>로그인</strong></h1>
+    <h1 class="mt-4 mb-3"><strong style="color: #343a40;">로그인</strong></h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
@@ -22,14 +22,14 @@
         <form action="<%=request.getContextPath()%>/user?cmd=login" method="post">
           <div class="control-group form-group">
             <div class="controls">
-              <label for="id">아이디 : </label>
+              <label for="id"><strong style="color: #343a40;">아이디 : </strong></label>
               <input type="text" class="form-control" id="id" name="id" required>
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
-              <label for="password">비밀번호 : </label>
+              <label for="password"><strong style="color: #343a40;">비밀번호 : </strong></label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
           </div>
@@ -45,20 +45,4 @@
   </div>
   <!-- /.Container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-  </footer>
-  <!-- /.Footer -->
-
-  <!-- Bootstrap core JS-->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="js/scripts.js"></script>
-
-</body>
-
-</html>
+<%@ include file="../layout/footer.jsp" %>

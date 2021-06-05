@@ -6,7 +6,7 @@
   <div class="container">
 
     <!-- Page Heading -->
-    <h1 class="mt-4 mb-3"><strong>회원가입</strong></h1>
+    <h1 class="mt-4 mb-3"><strong style="color: #343a40;">회원가입</strong></h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
@@ -22,7 +22,7 @@
         <form action="<%=request.getContextPath()%>/user?cmd=join" method="post" onsubmit="return valid()">
           <div class="control-group form-group">
             <div class="controls">
-              <label for="id"><strong>아이디 :</strong> </label>
+              <label for="id"><strong style="color: #343a40;">아이디 :</strong> </label>
               <button type="button" class="btn btn-info btn-sm" onclick="usernameCheck();">중복검사</button>
               <input type="text" class="form-control" id="id" name="id" required >
               <p class="help-block"></p>
@@ -30,19 +30,19 @@
           </div>
           <div class="control-group form-group">
             <div class="controls">
-              <label for="password"><strong>비밀번호 :</strong></label>
+              <label for="password"><strong style="color: #343a40;">비밀번호 :</strong></label>
               <input type="password" class="form-control" id="password" name="password" required>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
-              <label for="email"><strong>이메일 :</strong></label>
+              <label for="email"><strong style="color: #343a40;">이메일 :</strong></label>
               <input type="email" class="form-control" id="email" name="email" required>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
-              <label for="address"><strong>주소 :</strong></label>
+              <label for="address"><strong style="color: #343a40;">주소 :</strong></label>
               <button type="button" class="btn btn-info btn-sm" onclick="goPopup();">주소검색</button>
               <input type="text" class="form-control" id="roadAddress" name="roadAddress" required readonly><br>
               <input type="text" class="form-control" id="jibunAddress" name="jibunAddress" required readonly>
@@ -56,20 +56,6 @@
 
   </div>
   <!-- /.Container -->
-
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-  </footer>
-  <!-- /.Footer -->
-  
-  <!-- Bootstrap core JS-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="js/scripts.js"></script>
   
   <script>
   	var isChecking = false;
@@ -120,6 +106,4 @@
 	}
   </script>
 
-</body>
-
-</html>
+<%@ include file="../layout/footer.jsp" %>

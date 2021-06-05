@@ -6,7 +6,7 @@
   <section class="py-5">
     <div class="container">
       <!-- Page Heading/Breadcrumbs-->
-      <h1><strong>마이페이지</strong></h1>
+      <h1><strong style="color: #343a40;">마이페이지</strong></h1>
       <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">
           <a href="<%=request.getContextPath()%>/index.jsp">홈</a>
@@ -20,13 +20,13 @@
         <!-- Sidebar Column --> <%-- 사이드바 --%>
       	<div class="col-lg-3 mb-4">
           <div class="list-group">
-            <a href="<%=request.getContextPath()%>/journal?cmd=list&page=0&userId=${sessionScope.User.id}" class="list-group-item" style="color: black;">메인</a>
-          	<a href="<%=request.getContextPath()%>/journal?cmd=journalRecordForm" class="list-group-item" style="color: black;">진료 기록하기</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=animalhosptl" class="list-group-item" style="color: black;">내 주변 동물병원</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=animalpharmacy" class="list-group-item" style="color: black;">내 주변 동물약국</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=passwordCheckForm1" class="list-group-item" style="color: black;">회원정보수정</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=passwordUpdateForm" class="list-group-item" style="color: black;">비밀번호변경</a>
-          	<a href="<%=request.getContextPath()%>/user?cmd=passwordCheckForm2" class="list-group-item" style="color: black;">회원탈퇴</a>
+            <a href="<%=request.getContextPath()%>/journal?cmd=list&page=0&userId=${sessionScope.User.id}" class="list-group-item" style="color: #343a40; text-decoration:none">메인</a>
+          	<a href="<%=request.getContextPath()%>/journal?cmd=journalRecordForm" class="list-group-item" style="color: #343a40; text-decoration:none">진료 기록하기</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=animalhosptl" class="list-group-item" style="color: #343a40; text-decoration:none">내 주변 동물병원</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=animalpharmacy" class="list-group-item" style="color: #343a40; text-decoration:none">내 주변 동물약국</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=passwordCheckForm1" class="list-group-item" style="color: #343a40; text-decoration:none">회원정보수정</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=passwordUpdateForm" class="list-group-item" style="color: #343a40; text-decoration:none">비밀번호변경</a>
+          	<a href="<%=request.getContextPath()%>/user?cmd=passwordCheckForm2" class="list-group-item" style="color: #343a40; text-decoration:none">회원탈퇴</a>
           </div>
       	</div>
       	<!-- /.Sidebar Column -->
@@ -37,12 +37,12 @@
             <table class="table table-bordered table-sm">
       	      <thead>
     		    <tr>
-    	  		  <th style="background-color: #fafafa; text-align: center;">사업장명</th>
-    	  		  <th style="background-color: #fafafa; text-align: center;">상태</th>
-    	  		  <th style="background-color: #fafafa; text-align: center;">전화번호</th>
-    	  	 	  <th style="background-color: #fafafa; text-align: center;">도로명주소</th>
+    	  		  <th style="background-color: #fafafa; text-align: center; color: #343a40;">사업장명</th>
+    	  		  <th style="background-color: #fafafa; text-align: center; color: #343a40;">상태</th>
+    	  		  <th style="background-color: #fafafa; text-align: center; color: #343a40;">전화번호</th>
+    	  	 	  <th style="background-color: #fafafa; text-align: center; color: #343a40;">도로명주소</th>
     	  	 	  <c:if test="${cmd == true}"> <%-- 동물병원일 경우 평점 표시 --%>
-    	  		    <th style="background-color: #fafafa; text-align: center;">평점</th>
+    	  		    <th style="background-color: #fafafa; text-align: center; color: #343a40;">평점</th>
     	  		  </c:if>
     			</tr>
       	      </thead>
@@ -69,15 +69,15 @@
       			<form action="<%=request.getContextPath()%>/journal?cmd=journalRecord&page=0" method="post">
       				<input type="hidden" name="userId" value="${sessionScope.User.id}" />
       				<div class="form-group">
-      					<label for="title"><strong>제목:</strong></label>
+      					<label for="title"><strong style="color: #343a40;">제목:</strong></label>
       					<input type="text" class="form-control" placeholder="제목을 입력해주세요~!!" id="title" name="title" required/>
       				</div>
       				<div class="form-group">
-      					<label for="treatDate"><strong>진료일자:</strong></label>
+      					<label for="treatDate"><strong style="color: #343a40;">진료일자:</strong></label>
       					<input type="date" class="form-control" id="treatDate" name="treatDate" required/>
       				</div>
       				<div class="form-group">
-      					<label for="visit"><strong>방문한병원:</strong></label>
+      					<label for="visit"><strong style="color: #343a40;">방문한병원:</strong></label>
       					<select class="form-control" name="visit" id="visit">
       						<c:forEach var="animal" items="${animalDto}">
       						<option value="${animal.BIZPLC_NM}">${animal.BIZPLC_NM}</option>
@@ -86,7 +86,7 @@
       					<input type="hidden" name="address" value="${address}">
       				</div>
       				<div class="form-group">
-      					<label for="rank"><strong>평점:</strong></label>
+      					<label for="rank"><strong style="color: #343a40;">평점:</strong></label>
       					<select class="form-control" name="rank" id="rank">
       						<option value="1">1점</option>
       						<option value="2">2점</option>
@@ -96,7 +96,7 @@
       					</select>
       				</div>
       				<div class="form-group">
-      					<label for="content"><strong>내용:</strong></label>
+      					<label for="content"><strong style="color: #343a40;">내용:</strong></label>
       					<textarea id="summernote" class="form-control" rows="5" id="content" name="content"></textarea>
       				</div>
       				<button type="submit" class="btn btn-dark">진료일지 등록</button>
@@ -157,14 +157,14 @@
         	<form action="<%=request.getContextPath()%>/user?cmd=userUpdateForm" method="post" onsubmit="return valid()">
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="id"><strong>아이디 :</strong> </label>
+              			<label for="id"><strong style="color: #343a40;">아이디 :</strong> </label>
               			<input type="text" class="form-control" id="id" name="id" value="${sessionScope.User.username}" required readonly>
               			<p class="help-block"></p>
             		</div>
           		</div>
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="password"><strong>비밀번호 :</strong></label>
+              			<label for="password"><strong style="color: #343a40;">비밀번호 :</strong></label>
               			<input type="password" class="form-control" id="password" name="password" required>
             		</div>
           		</div>
@@ -178,20 +178,20 @@
         	<form action="#" method="post" onsubmit="return userUpdate()">
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="userid"><strong>아이디 :</strong> </label>
+              			<label for="userid"><strong style="color: #343a40;">아이디 :</strong> </label>
               			<input type="text" class="form-control" id="userid" name="userid" value="${sessionScope.User.username}" required readonly>
               			<p class="help-block"></p>
             		</div>
           		</div>
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="email"><strong>이메일 :</strong></label>
+              			<label for="email"><strong style="color: #343a40;">이메일 :</strong></label>
               			<input type="email" class="form-control" id="email" name="email" value="${sessionScope.User.email}" required>
             		</div>
           		</div>
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="address"><strong>주소 :</strong></label>
+              			<label for="address"><strong style="color: #343a40;">주소 :</strong></label>
               			<button type="button" class="btn btn-dark btn-sm" onclick="goPopup();">주소검색</button>
               			<input type="text" class="form-control" id="roadAddress" name="roadAddress" value="${sessionScope.User.roadAddress}" required readonly><br>
               			<input type="text" class="form-control" id="jibunAddress" name="jibunAddress" value="${sessionScope.User.jibunAddress}" required readonly>
@@ -208,21 +208,21 @@
         	    <input type="hidden" id="username" name="username" value="${sessionScope.User.username}">
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for=psPassword"><strong>현재 비밀번호 :</strong> </label>
+              			<label for="psPassword"><strong style="color: #343a40;">현재 비밀번호 :</strong> </label>
               			<input type="password" class="form-control" id="psPassword" name="psPassword" required>
               			<p class="help-block"></p>
             		</div>
           		</div>
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="password"><strong>새 비밀번호 :</strong> </label>
+              			<label for="password"><strong style="color: #343a40;">새 비밀번호 :</strong> </label>
               			<input type="password" class="form-control" id="password" name="password" required>
               			<p class="help-block"></p>
             		</div>
           		</div>
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="passwordOK"><strong>새 비밀번호 확인 :</strong></label>
+              			<label for="passwordOK"><strong style="color: #343a40;">새 비밀번호 확인 :</strong></label>
               			<input type="password" class="form-control" id="passwordOK" name="passwordOK" required>
             		</div>
           		</div>
@@ -236,14 +236,14 @@
         	<form action="<%=request.getContextPath()%>/user?cmd=userWithdrawalForm" method="post" onsubmit="return valid()">
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="id"><strong>아이디 :</strong> </label>
+              			<label for="id"><strong style="color: #343a40;">아이디 :</strong> </label>
               			<input type="text" class="form-control" id="id" name="id" value="${sessionScope.User.username}" required readonly>
               			<p class="help-block"></p>
             		</div>
           		</div>
           		<div class="control-group form-group">
             		<div class="controls">
-              			<label for="password"><strong>비밀번호 :</strong></label>
+              			<label for="password"><strong style="color: #343a40;">비밀번호 :</strong></label>
               			<input type="password" class="form-control" id="password" name="password" required>
             		</div>
           		</div>

@@ -6,7 +6,7 @@
   <section class="py-5">
     <div class="container">
       <!-- Page Heading/Breadcrumbs-->
-      <h1><strong>유기 동물 보호 시설 조회</strong></h1>
+      <h1><strong style="color: #343a40;">유기 동물 보호 시설 조회</strong></h1>
       <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item">
           <a href="<%=request.getContextPath()%>/index.jsp">홈</a>
@@ -22,7 +22,7 @@
     	    <tr>
               <th style="background-color: #fafafa; text-align: center;">시군명</th>
     	      <th style="background-color: #fafafa; text-align: center;">사업장명</th>
-    	      <th style="background-color: #fafafa; text-align: center;">수용능력수</th>
+    	      <th style="background-color: #fafafa; text-align: center;">전화번호</th>
     	      <th style="background-color: #fafafa; text-align: center;">우편번호</th>
     	      <th style="background-color: #fafafa; text-align: center;">도로명주소</th>
     	    </tr>
@@ -32,7 +32,7 @@
     	    <tr>
               <td>${animal.SIGUN_NM}</td>
               <td>${animal.ENTRPS_NM}</td>
-          	  <td>${animal.ACEPTNC_ABLTY_CNT}</td>
+          	  <td>${animal.ENTRPS_TELNO}</td>
           	  <td>${animal.REFINE_ZIP_CD}</td>
           	  <td>${animal.REFINE_ROADNM_ADDR}</td>
         	</tr>
@@ -108,20 +108,4 @@
   </section>
   <!-- /.Container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Animal Protector of Gyeonggi Provience 2021 </p>
-    </div>
-  </footer>
-  <!-- /.Footer -->
-
-  <!-- Bootstrap core JS-->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="js/scripts.js"></script>
-
-</body>
-
-</html>
+<%@ include file="../layout/footer.jsp" %>

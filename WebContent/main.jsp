@@ -51,7 +51,7 @@
   <!-- Page Content-->
   <section class="py-5 bg-light">
     <div class="container">
-      <h1 class="mb-4"> 경기도 시설 알아보기 </h1>
+      <h2 class="mb-4"><strong style="color: #343a40;"> 경기도 시설 알아보기 </strong></h2>
       <!-- Marketing Icons Section-->
       <div class="row">
         <div class="col-lg-4 mb-4 mb-lg-0">
@@ -112,7 +112,7 @@
   <hr class="my-0" />
   <section class="py-5 bg-light">
   <div class="container">
-  <h1 class="mb-4"> 강아지 예방 접종 </h1>
+  <h2 class="mb-4"><strong style="color: #343a40;"> 강아지 예방 접종 </strong></h2>
   <div class="table-responsive">
         <table class="table" style="text-align: center; border: 1px solid #dddddd">
           <thead>
@@ -160,7 +160,7 @@
   </div>
   <br><br>
   <div class="container">
-  <h1 class="mb-4"> 고양이 예방 접종 </h1>
+  <h2 class="mb-4"><strong style="color: #343a40;"> 고양이 예방 접종 </strong></h2>
   <div class="table-responsive">
         <table class="table" style="text-align: center; border: 1px solid #dddddd">
           <thead>
@@ -200,14 +200,14 @@
   <!-- Animal Section -->
   <section class="py-5 bg-light">
     <div class="container">
-      <h2 class="mb-4"> 쉽게 알려주는 반려 동물 질병 사전 </h2>
+      <h2 class="mb-4"><strong style="color: #343a40;"> 쉽게 알려주는 반려 동물 질병 사전 </strong></h2>
       <div class="row">
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
             <a href="knowledge/knowledge1.jsp"><img class="card-img-top" src="img/dislocations.png" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="knowledge/knowledge1.jsp"> 강아지 슬개골 탈구 증상과 치료, 관리법은? </a>
+                <a style="color: #343a40;" href="knowledge/knowledge1.jsp"> 강아지 슬개골 탈구 증상과 치료, 관리법은? </a>
               </h4>
               <p class="card-text"> What are the symptoms, treatment, and management of dislocation of the dog's skull? </p>
             </div>
@@ -218,7 +218,7 @@
             <a href="knowledge/knowledge2.jsp"><img class="card-img-top" src="img/allergy.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="knowledge/knowledge2.jsp"> 강아지 알레르기 증상과 원인에 따른 관리법은? </a>
+                <a style="color: #343a40;" href="knowledge/knowledge2.jsp"> 강아지 알레르기 증상과 원인에 따른 관리법은? </a>
               </h4>
               <p class="card-text"> How do you manage your dog allergy symptoms and causes? </p>
             </div>
@@ -229,7 +229,7 @@
             <a href="knowledge/knowledge3.jsp"><img class="card-img-top" src="img/heartDisease.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="knowledge/knowledge3.jsp"> 강아지 심장 질환, 기침한다면 의심해야 해요! </a>
+                <a style="color: #343a40;" href="knowledge/knowledge3.jsp"> 강아지 심장 질환, 기침한다면 의심해야 해요! </a>
               </h4>
               <p class="card-text"> Dog heart disease, if you cough, you should doubt it! </p>
             </div>
@@ -240,7 +240,7 @@
             <a href="knowledge/knowledge4.jsp"><img class="card-img-top" src="img/cystitis.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="knowledge/knowledge4.jsp"> 고양이 방광염, 관리가 가장 중요해요! </a>
+                <a style="color: #343a40;" href="knowledge/knowledge4.jsp"> 고양이 방광염, 관리가 가장 중요해요! </a>
               </h4>
               <p class="card-text"> Cat bladder inflammation, care is the most important thing! </p>
             </div>
@@ -251,7 +251,7 @@
             <a href="knowledge/knowledge5.jsp"><img class="card-img-top" src="img/stomatitis.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="knowledge/knowledge5.jsp"> 고양이 구내염? 대표적인 치과 질병 알아보기 </a>
+                <a style="color: #343a40;" href="knowledge/knowledge5.jsp"> 고양이 구내염? 대표적인 치과 질병 알아보기 </a>
               </h4>
               <p class="card-text"> Cat's canker sore? Discover Typical Dental Diseases </p>
             </div>
@@ -262,7 +262,7 @@
             <a href="knowledge/knowledge6.jsp"><img class="card-img-top" src="img/herpiece.jpg" style="width: 348px; height: 300px;" alt="" /></a>
             <div class="card-body">
               <h4 class="card-title">
-                <a href="knowledge/knowledge6.jsp"> 고양이 허피스, 그냥 감기라고 생각하면 안 돼요! </a>
+                <a style="color: #343a40;" href="knowledge/knowledge6.jsp"> 고양이 허피스, 그냥 감기라고 생각하면 안 돼요! </a>
               </h4>
               <p class="card-text"> Herpes, you can't just think of it as a cold! </p>
             </div>
@@ -276,20 +276,4 @@
    
   <!-- /.Container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Animal Protector of Gyeonggi Provience 2021 </p>
-    </div>
-  </footer>
-  <!-- /.Footer -->
-
-  <!-- Bootstrap core JS-->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Core theme JS-->
-  <script src="js/scripts.js"></script>
-
-</body>
-
-</html>
+<%@ include file="layout/footer.jsp" %>

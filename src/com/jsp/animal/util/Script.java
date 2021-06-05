@@ -20,4 +20,18 @@ public class Script {
 		}
 	}
 	
+	public static void lognError(HttpServletResponse response, String msg) {
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print("<script>");
+			out.print("alert('" + msg + "');");
+			out.print("window.location.href = '/animal/user?cmd=loginForm';");
+			out.print("</script>");
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

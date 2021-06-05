@@ -66,7 +66,7 @@ public class AnimalDao {
      			FReqDto animal = new FReqDto();
         		animal.setSIGUN_NM(rs.getString("SIGUN_NM"));
         		animal.setENTRPS_NM(rs.getString("ENTRPS_NM"));
-        		animal.setACEPTNC_ABLTY_CNT(rs.getString("ACEPTNC_ABLTY_CNT"));
+        		animal.setENTRPS_TELNO(rs.getString("ENTRPS_TELNO"));
         		animal.setREFINE_ZIP_CD(rs.getString("REFINE_ZIP_CD"));
         		animal.setREFINE_ROADNM_ADDR(rs.getString("REFINE_ROADNM_ADDR"));
         			 

@@ -21,10 +21,10 @@
           <img class="img-fluid rounded mb-4" src="img/logo.jpg" style="height:400px; width:500px;" alt="..." />
         </div>
         <div class="col-lg-6">
-          <h2><strong style="color: #343a40;"> 경기도 동물 지킴이 </strong></h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed voluptate nihil eum consectetur similique? Consectetur, quod, incidunt, harum nisi dolores delectus reprehenderit voluptatem perferendis dicta dolorem non blanditiis ex fugiat.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem corporis eveniet. Odit, temporibus reprehenderit dolorum!</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti eum ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti necessitatibus perspiciatis quis?</p>
+          <br /><br /><br /><h2><strong style="color: #343a40;"> 경기도 동물 지킴이 </strong></h2><br />
+          <p>경기데이터드림에서 제공하는 공공 데이터 포털 API를 통해서 필요한 정보만 가져와 사용자들에게 편리한 UI와 정보를 제공해줍니다.<p>
+          <p>또한 회원으로 가입 할 경우 회원의 주소 주변 동물병원 및 동물약국도 확인 할 수 있습니다.</p>
+          <p>만약 동물병원에 방문했으면 마이페이지에서 동물일지를 작성하여 기록을 남길 수 있고, 방문한 병원에 대해 평점도 매길 수 있습니다.</p>
         </div>
       </div>
     </div>

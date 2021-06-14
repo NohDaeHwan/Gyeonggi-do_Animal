@@ -163,5 +163,23 @@ public class UserDao {
 		}		
 		return -1;
 	}	
+	
+	// 회원 탈퇴 시 동물일지 삭제
+	public int userJournalDelete(int userId) {
+		String sql = "DELETE FROM journal WHERE userId = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userId);
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.close(conn, pstmt);
+		}		
+		return -1;
+	}	
 	 
 }

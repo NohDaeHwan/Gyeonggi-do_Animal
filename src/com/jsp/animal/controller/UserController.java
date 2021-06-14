@@ -185,6 +185,7 @@ public class UserController extends HttpServlet {
 				UserService service = new UserService();
 				int result =  service.userWithdrawal(user.getUsername(), user.getPassword());
 				if (result == 1) {
+					service.userJournalDelete(user.getId());
 					session.invalidate();
 					PrintWriter out = response.getWriter();
 					out.print("<script>");

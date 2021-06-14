@@ -86,5 +86,9 @@ public class UserService {
 	public int userWithdrawal(String username, String password) {
 		return userDao.userWithdrawal(username, password);
 	}
-		
+	
+	// 회원탈퇴 시 동물일지 삭제
+	public int userJournalDelete(int userId) {
+		return userDao.userJournalDelete(userId);
+	}
 }
